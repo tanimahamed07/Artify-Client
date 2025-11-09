@@ -1,16 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useNavigate, useLocation } from 'react-router'
+import { AuthContext } from '../../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
-const 
+    const { signInUser, signInWithGoogle } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const handleLogIn = (event) => {
+        event.preventDefault();
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        signInUser(email, password)
+            .then((result) => {
+                console.log(result.user);
+                event.target.reset();
+                navigate(location.state?.from || "/");
+            })
+            .catch((error) => {
+                console.error(error);
+                toast.error(error.message)
+            });
+    };
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then((result) => {
+                console.log(result.user);
+                navigate(location.state?.from || "/");
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="w-full max-w-md p-6 rounded-lg shadow-md">
                 <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
 
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={handleLogIn}>
                     <input
                         type="email"
                         placeholder="Email"
@@ -26,13 +57,14 @@ const
                             name='password'
                             className="input input-bordered w-full"
                             required
-
                         />
-                        <button type="button"
+                        <button
+                            type="button"
                             onClick={() => setShowPassword(!showPassword)}
                             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                         >
-                            {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}</button>
+                            {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                        </button>
                     </div>
 
                     <button type="submit" className="btn btn-primary w-full">
@@ -43,7 +75,7 @@ const
                 <div className="divider">OR</div>
 
                 <button
-
+                    onClick={handleGoogleSignIn}
                     className="btn btn-outline btn-success w-full"
                 >
                     Continue with Google
@@ -60,4 +92,5 @@ const
     );
 };
 
+// ✅ export সবসময় top level-এ
 export default Login;
