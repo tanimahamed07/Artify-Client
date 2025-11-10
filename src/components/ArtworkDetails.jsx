@@ -17,7 +17,18 @@ const ArtworkDetails = () => {
                 setAllArtByArtist(res.data.allArtByArtist)
             })
     }, [id, axiosInstance])
+    console.log(details)
 
+
+    const handleLikes = () => {
+        axiosInstance.put(`/art-details/${id}/like`)
+            .then(res => {
+                setDetails(prev => ({
+                    ...prev,
+                    likes: res.data.updatedArt.likes
+                }))
+            })
+    }
     return (
         <div className="max-w-conteiner mx-auto p-8">
             <div className="flex flex-col lg:flex-row gap-12">
@@ -37,11 +48,11 @@ const ArtworkDetails = () => {
                     <p className="text-lg"><strong>Dimensions:</strong> {details?.dimensions}</p>
                     <p className="text-lg text-gray-700">{details?.description}</p>
                     <div className="flex gap-4 items-center mt-4">
-                        <button
+                        <button onClick={handleLikes}
 
                             className="btn btn-outline border-2 border-primary px-6 py-3 text-lg"
                         >
-                            <BiSolidLike size={24} className="text-blue-500" />
+                           <span>{details?.likes}</span>  <BiSolidLike size={24} className="text-blue-500" />
                         </button>
                         <button className="btn btn-outline border-[#b89e4f] text-primary hover:bg-secondary hover:text-white px-6 py-3 text-lg btn-primary flex items-center gap-2">
                             <FaHeart className="text-red-400 text-3xl" />

@@ -17,7 +17,6 @@ const AllArtworks = () => {
                     (art) => art.visibility === true
                 );
                 console.log(publicArtworks)
-
                 setArtworks(publicArtworks)
             })
             .catch(err => console.error(err));
