@@ -1,11 +1,15 @@
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useAxios } from '../hook/useAxios';
 import { BiSolidLike } from 'react-icons/bi';
 import { FaHeart, FaUserAlt } from 'react-icons/fa';
+import { AuthContext } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const ArtworkDetails = () => {
+    const { user } = use(AuthContext);
+    console.log(user)
     const axiosInstance = useAxios()
     const { id } = useParams();
     const [details, setDetails] = useState(null)
@@ -17,17 +21,41 @@ const ArtworkDetails = () => {
                 setAllArtByArtist(res.data.allArtByArtist)
             })
     }, [id, axiosInstance])
-    console.log(details)
 
 
     const handleLikes = () => {
         axiosInstance.put(`/art-details/${id}/like`)
             .then(res => {
+                console.log(res)
                 setDetails(prev => ({
                     ...prev,
-                    likes: res.data.updatedArt.likes
+                    likes: prev.likes + 1
                 }))
             })
+    }
+    console.log(details)
+    
+    const handleFevorites = () => {
+        const favorite = {
+            artistEmail : details.artistEmail,
+            artistName : details.artistName,
+            category : details.category,
+            dimensions : details.dimensions,
+            imageUrl : details.imageUrl,
+            medium : details.medium,
+            title: details.title,
+            likes: details.likes,
+            price: details.price,
+        }
+        axiosInstance.post('/fevorites', {
+            userEmail: user.email,
+            ...favorite
+        })
+        .then(res =>{
+            if(res.data.result.insertedId){
+                toast.success('Added to Favorites List')
+            }
+        })
     }
     return (
         <div className="max-w-conteiner mx-auto p-8">
@@ -52,9 +80,9 @@ const ArtworkDetails = () => {
 
                             className="btn btn-outline border-2 border-primary px-6 py-3 text-lg"
                         >
-                           <span>{details?.likes}</span>  <BiSolidLike size={24} className="text-blue-500" />
+                            <span>{details?.likes}</span>  <BiSolidLike size={24} className="text-blue-500" />
                         </button>
-                        <button className="btn btn-outline border-[#b89e4f] text-primary hover:bg-secondary hover:text-white px-6 py-3 text-lg btn-primary flex items-center gap-2">
+                        <button onClick={handleFevorites} className="btn btn-outline border-[#b89e4f] text-primary hover:bg-secondary hover:text-white px-6 py-3 text-lg btn-primary flex items-center gap-2">
                             <FaHeart className="text-red-400 text-3xl" />
                             <span>Add to Favorites</span>
                         </button>

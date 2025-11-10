@@ -14,7 +14,7 @@ const AllArtworks = () => {
         axiosInstance.get('/all-artworks')
             .then(res => {
                 const publicArtworks = res.data.result.filter(
-                    (art) => art.visibility === true
+                    (art) => art.visibility === true || 'true'
                 );
                 console.log(publicArtworks)
                 setArtworks(publicArtworks)

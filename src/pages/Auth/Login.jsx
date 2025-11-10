@@ -5,10 +5,13 @@ import { AuthContext } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 
 const Login = () => {
+
     const [showPassword, setShowPassword] = useState(false);
     const { signInUser, signInWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
+    console.log(navigate)
     const location = useLocation();
+    console.log(location)
     const handleLogIn = (event) => {
         event.preventDefault();
         const email = event.target.email.value;
@@ -17,7 +20,7 @@ const Login = () => {
             .then((result) => {
                 console.log(result.user);
                 event.target.reset();
-                navigate(location.state?.from || "/");
+                navigate(location.state || "/");
             })
             .catch((error) => {
                 console.error(error);
@@ -29,7 +32,7 @@ const Login = () => {
         signInWithGoogle()
             .then((result) => {
                 console.log(result.user);
-                navigate(location.state?.from || "/");
+                navigate(location.state || "/");
             })
             .catch((error) => {
                 console.error(error);

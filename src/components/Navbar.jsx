@@ -32,9 +32,9 @@ const Navbar = () => {
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-gray-700">
                             <li><NavLink to='/'>Home</NavLink></li>
                             <li><NavLink to='/all-artworks'>Explore Artworks</NavLink></li>
-                            <li><NavLink to='/all-artworks'>Add Artworks</NavLink></li>
-                            <li><NavLink to='/add-artworks'>My Gallery</NavLink></li>
-                            <li><NavLink to='/'>My Favorites</NavLink></li>
+                            <li><NavLink to='/add-artworks'>Add Artworks</NavLink></li>
+                            <li><NavLink to='/'>My Gallery</NavLink></li>
+                            <li><NavLink to='/favorites'>My Favorites</NavLink></li>
                         </ul>
                     </div>
                     <a className="text-xl font-bold  text-primary">ARTIFY</a>
@@ -45,7 +45,7 @@ const Navbar = () => {
                         <li><NavLink to='/all-artworks'>Explore Artworks</NavLink></li>
                         <li><NavLink to='/add-artworks'>Add Artworks</NavLink></li>
                         <li><NavLink to='/'>My Gallery</NavLink></li>
-                        <li><NavLink to='/'>My Favorites</NavLink></li>
+                        <li><NavLink to='/favorites'>My Favorites</NavLink></li>
                     </ul>
                 </div>
                 <div className="">

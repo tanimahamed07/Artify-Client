@@ -8,6 +8,8 @@ import AllArtworks from '../pages/AllArtworks/AllArtworks.jsx';
 import ArtworkDetails from '../components/ArtworkDetails.jsx';
 import PrivateRouts from './PrivateRouts.jsx';
 import AddArtWorks from '../pages/AddArtWorks.jsx/AddArtWorks.jsx';
+import Favorites from '../pages/Favorites/Favorites.jsx';
+
 
 export const router = createBrowserRouter([
     {
@@ -37,8 +39,12 @@ export const router = createBrowserRouter([
             {
                 path: '/add-artworks',
                 element: <AddArtWorks></AddArtWorks>
+            },
+            {
+                path: '/favorites',
+                element: <Favorites></Favorites>
             }
-        ]
+        ]   
     },
 
 ]);
