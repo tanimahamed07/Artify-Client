@@ -1,28 +1,28 @@
 
 import { use, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { useAxios } from '../hook/useAxios';
 import { BiSolidLike } from 'react-icons/bi';
 import { FaHeart, FaUserAlt } from 'react-icons/fa';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
+import useAxiosSecure from '../hook/useAxiosSecure';
+import { useAxios } from '../hook/useAxios';
 
 const ArtworkDetails = () => {
     const { user } = use(AuthContext);
     console.log(user)
-    const axiosInstance = useAxios()
+    const axiosSecure = useAxiosSecure()
+    const axiosInstance = useAxios();
     const { id } = useParams();
     const [details, setDetails] = useState(null)
     const [allArtByArtist, setAllArtByArtist] = useState([])
     useEffect(() => {
-        axiosInstance.get(`/art-details/${id}`)
+        axiosSecure.get(`/art-details/${id}`)
             .then(res => {
                 setDetails(res.data.result)
                 setAllArtByArtist(res.data.allArtByArtist)
             })
-    }, [id, axiosInstance])
-
-
+    }, [id, axiosSecure])
     const handleLikes = () => {
         axiosInstance.put(`/art-details/${id}/like`)
             .then(res => {
@@ -34,15 +34,15 @@ const ArtworkDetails = () => {
             })
     }
     console.log(details)
-    
+
     const handleFevorites = () => {
         const favorite = {
-            artistEmail : details.artistEmail,
-            artistName : details.artistName,
-            category : details.category,
-            dimensions : details.dimensions,
-            imageUrl : details.imageUrl,
-            medium : details.medium,
+            artistEmail: details.artistEmail,
+            artistName: details.artistName,
+            category: details.category,
+            dimensions: details.dimensions,
+            imageUrl: details.imageUrl,
+            medium: details.medium,
             title: details.title,
             likes: details.likes,
             price: details.price,
@@ -51,20 +51,20 @@ const ArtworkDetails = () => {
             userEmail: user.email,
             ...favorite
         })
-        .then(res =>{
-            if(res.data.result.insertedId){
-                toast.success('Added to Favorites List')
-            }
-        })
+            .then(res => {
+                if (res.data.result.insertedId) {
+                    toast.success('Added to Favorites List')
+                }
+            })
     }
     return (
         <div className="max-w-conteiner mx-auto p-8">
-            <div className="flex flex-col lg:flex-row gap-12">
+            <div className="flex flex-col lg:flex-row gap-12 ">
                 <div className="lg:w-1/2 w-full">
                     <img
                         src={details?.imageUrl}
                         alt={details?.title || 'Artwork'}
-                        className="rounded-lg shadow-lg w-full h-auto object-cover lg:max-h-[600px]"
+                        className="rounded-lg shadow-lg w-full h-auto object-cover lg:max-h-[600px] border-2 border-gray-500"
                     />
                 </div>
                 <div className="lg:w-1/2 w-full flex flex-col gap-6">

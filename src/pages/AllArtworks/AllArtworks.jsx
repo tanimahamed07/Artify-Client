@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useAxios } from '../../hook/useAxios';
 import ArtsCard from '../../components/ArtsCard';
-import { useLocation, useNavigate } from 'react-router';
+import Loader from '../../components/Loader';
 
 const AllArtworks = () => {
     const axiosInstance = useAxios();
-    const location = useLocation()
-    const navigate = useNavigate()
     const [artworks, setArtworks] = useState([]);
     const [search, setSearch] = useState('');
-    console.log(artworks)
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
+        setLoading(true)
         axiosInstance.get('/all-artworks')
             .then(res => {
                 const publicArtworks = res.data.result.filter(
                     (art) => art.visibility === true || 'true'
                 );
-                console.log(publicArtworks)
+                // console.log(publicArtworks)
                 setArtworks(publicArtworks)
+                setLoading(false)
             })
             .catch(err => console.error(err));
     }, [axiosInstance]);
     const filteredArtworks = artworks.filter(art =>
         art.artistName?.toLowerCase().includes(search.toLowerCase())
     );
+    if(loading){
+        return <Loader></Loader>
+    }
     return (
         <div className='container mx-auto p-4 space-y-12'>
             <h2 className="text-3xl text-center font-bold mb-6">Featured Artworks</h2>

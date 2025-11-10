@@ -3,21 +3,24 @@ import { AuthContext } from '../../context/AuthContext';
 import { useAxios } from '../../hook/useAxios';
 import GalleryCard from './GalleryCard';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../hook/useAxiosSecure';
 
 const Gallery = () => {
     const { user } = useContext(AuthContext);
+    const axiosSecure = useAxiosSecure()
     const axiosInstance = useAxios();
     const [arts, setArts] = useState([]);
 
     useEffect(() => {
-        if (!user?.email) return;
-        axiosInstance.get(`/my-gallery?email=${user.email}`)
+
+        axiosSecure.get(`/my-gallery?email=${user.email}`)
             .then(res => {
                 console.log(res?.data?.result);
                 setArts(res.data?.result);
+                
             })
             .catch(err => console.error(err));
-    }, [user, axiosInstance]);
+    }, [user, axiosSecure]);
     const handleDelete = (id) => {
         console.log(id)
         Swal.fire({
@@ -42,11 +45,6 @@ const Gallery = () => {
                 });
             }
         });
-
-
-
-
-
     }
     return (
 

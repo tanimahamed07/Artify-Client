@@ -8,5 +8,5 @@
   --color-text-gray: #7d7d7d;
 }
 
-
+@custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
 

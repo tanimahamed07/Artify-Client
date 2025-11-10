@@ -1,8 +1,6 @@
 import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useAxios } from '../../hook/useAxios';
-import { BiSolidLike } from 'react-icons/bi';
-import { Link } from 'react-router';
 import FavoritesCard from './FavoritesCard';
 
 const Favorites = () => {

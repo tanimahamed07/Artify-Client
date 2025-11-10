@@ -5,7 +5,6 @@ import { AuthContext } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 
 const Login = () => {
-
     const [showPassword, setShowPassword] = useState(false);
     const { signInUser, signInWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -41,7 +40,7 @@ const Login = () => {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="w-full max-w-md p-6 rounded-lg shadow-md">
+            <div className="w-full max-w-md p-6 rounded-lg shadow-md  border-gray-500 border-2">
                 <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
 
                 <form className="space-y-4" onSubmit={handleLogIn}>

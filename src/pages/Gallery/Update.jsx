@@ -1,0 +1,84 @@
+import React, { use, useEffect, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { useAxios } from '../../hook/useAxios';
+import { useParams } from 'react-router';
+
+const Update = () => {
+    const { id } = useParams();
+    console.log(id)
+    const axiosInstance = useAxios();
+    const [art, setArts] = useState([]);
+    console.log(art)
+    useEffect(() => {
+        axiosInstance.get(`/update/${id}`)
+            .then(res => {
+                console.log(res.data.result);
+                setArts(res.data.result);
+            })
+            .catch(err => console.error(err));
+    }, [id, axiosInstance]);
+
+    const updateArtwork = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const imageUrl = form.imageUrl.value;
+        const title = form.title.value;
+        const category = form.category.value;
+        const medium = form.medium.value;
+        const description = form.description.value;
+        const dimensions = form.dimensions.value;
+        const price = form.price.value;
+        const visibility = Boolean(form.visibility.value);
+
+        const updatedArtWork = {
+            category,
+            description,
+            dimensions,
+            imageUrl,
+            medium,
+            price,
+            title,
+            visibility
+        }
+        axiosInstance.patch(`/update-art/${id}`, updatedArtWork)
+            .then(res => {
+                console.log(res?.data?.result);
+                setArts(res.data?.result);
+            })
+
+
+        console.log(updatedArtWork)
+    }
+    return (
+        <div className="flex justify-center items-center py-10">
+            <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-md">
+                <h2 className="text-2xl font-bold text-center mb-6">Update Artwork</h2>
+                <form onSubmit={updateArtwork} className="space-y-4">
+                    <label htmlFor="">Photo Url</label>
+                    <input defaultValue={art.imageUrl} type="text" placeholder="Image URL" name="imageUrl" className="input input-bordered w-full" required />
+                    <label>Title</label>
+                    <input defaultValue={art.title} type="text" placeholder="Title" name="title" className="input input-bordered w-full" required />
+                    <label>Category</label>
+                    <input defaultValue={art.category} type="text" placeholder="Category" name="category" className="input input-bordered w-full" required />
+                    <label>Medium/Tools</label>
+                    <input defaultValue={art.medium} type="text" placeholder="Medium / Tools" name="medium" className="input input-bordered w-full" required />
+                    <label>Description</label>
+                    <textarea defaultValue={art.description} placeholder="Description" name="description" className="input input-bordered w-full h-24" required />
+                    <label>Dimensions</label>
+                    <input defaultValue={art.dimensions} type="text" placeholder="Dimensions (optional)" name="dimensions" className="input input-bordered w-full" />
+                    <label>Price</label>
+                    <input defaultValue={art.price} type="text" placeholder="Price (optional)" name="price" className="input input-bordered w-full" />
+                    <label htmlFor="">Visibility</label>
+                    <select defaultValue={art.visibility} name="visibility" className="input input-bordered w-full">
+                        <option value="true">Public</option>
+                        <option value="false">Private</option>
+                    </select>
+
+                    <button type="submit" className="btn btn-primary w-full">Update</button>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+export default Update;

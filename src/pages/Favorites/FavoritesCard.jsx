@@ -1,13 +1,13 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 import { BiSolidLike } from 'react-icons/bi';
 import { Link } from 'react-router';
-import { useAxios } from '../../hook/useAxios';
 
 const FavoritesCard = ({ art, handleUnfavorite }) => {
         const handleClick = () => {
+            toast.success('Remove from Favorite')
             handleUnfavorite(art._id)
         }
-
     return (
         <div className="card card-compact bg-base-100 shadow-xl">
             <figure>

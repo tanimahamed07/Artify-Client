@@ -1,11 +1,22 @@
-import React, { use } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
 const Navbar = () => {
     const { user, signOutUser } = use(AuthContext)
+   const [theme, setTheme] = useState(localStorage.getItem('theme') || "light")
 
+  useEffect(() => {
+    const html = document.querySelector('html')
+     html.setAttribute("data-theme", theme)
+     localStorage.setItem("theme", theme)
+  }, [theme])
+
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark": "light")
+  }
     // console.log(user.displayName)
     console.log(user?.displayName || {});
     const handleSignOut = () => {
@@ -19,10 +30,9 @@ const Navbar = () => {
             });
     };
     return (
-
-        <div className='mx-10'>
-            <div className="navbar bg-base-100  flex justify-between items-center " >
-                <div className=" ">
+        <div className='px-10 border-b-2 border-gray-500 shadow-xl'>
+            <div className=" navbar bg-base-100 " >
+                <div className=" navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
@@ -37,9 +47,10 @@ const Navbar = () => {
                             <li><NavLink to='/favorites'>My Favorites</NavLink></li>
                         </ul>
                     </div>
-                    <a className="text-xl font-bold  text-primary">ARTIFY</a>
+                    <img className='w-[60px]' src='https://i.ibb.co/0yF92G1H/Chat-GPT-Image-Nov-10-2025-11-00-39-PM.png' alt="" />
+                    <a className="text-xl font-bold  text-primary"> ARTIFY</a>
                 </div>
-                <div className=" hidden lg:flex">
+                <div className="navbar-center  hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-secondery">
                         <li className=''><NavLink to='/'>Home</NavLink></li>
                         <li><NavLink to='/all-artworks'>Explore Artworks</NavLink></li>
@@ -48,7 +59,8 @@ const Navbar = () => {
                         <li><NavLink to='/favorites'>My Favorites</NavLink></li>
                     </ul>
                 </div>
-                <div className="">
+                <div className="navbar-end flex items-center gap-10">
+                    <input onChange={(e) => handleTheme(e.target.checked)} type="checkbox" value="synthwave" className="toggle theme-controller" />
                     {user ? (
                         <div className="relative group">
                             <img

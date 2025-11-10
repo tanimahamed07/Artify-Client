@@ -1,11 +1,14 @@
 import React, { use } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useAxios } from '../../hook/useAxios';
+// import { useAxios } from '../../hook/useAxios';
 import toast from 'react-hot-toast';
+import useAxiosSecure from '../../hook/useAxiosSecure';
+
 
 
 const AddArtWorks = () => {
-    const axiosInstance = useAxios();
+    // const axiosInstance = useAxios();
+    const axiosSecure = useAxiosSecure();
     const { user } = use(AuthContext);
     console.log(user?.displayName)
     const handleAddArtwork = (event) => {
@@ -23,7 +26,7 @@ const AddArtWorks = () => {
             artistEmail: user?.email,
             createdAt: new Date()
         };
-        axiosInstance.post('/add-artworks', artwork)
+        axiosSecure.post('/add-artworks', artwork)
             .then(res => {
                 console.log(res.data.result.insertedId)
                 if(res.data.result.insertedId){
@@ -35,10 +38,9 @@ const AddArtWorks = () => {
             })
         // event.target.reset();
     };
-
     return (
         <div className="flex justify-center items-center py-10">
-            <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-md">
+            <div className="w-full max-w-lg p-6 rounded-lg shadow-md">
                 <h2 className="text-2xl font-bold text-center mb-6">Add New Artwork</h2>
                 <form className="space-y-4" onSubmit={handleAddArtwork}>
                     <input type="text" placeholder="Image URL" name="imageUrl" className="input input-bordered w-full" required />
@@ -52,8 +54,8 @@ const AddArtWorks = () => {
                         <option value="true">Public</option>
                         <option value="false">Private</option>
                     </select>
-                    <input type="text" value={user?.displayName || ''} className="input input-bordered w-full bg-gray-100" readOnly />
-                    <input type="email" value={user?.email || ''} className="input input-bordered w-full bg-gray-100" readOnly />
+                    <input type="text" value={user?.displayName || ''} className="input input-bordered w-full" readOnly />
+                    <input type="email" value={user?.email || ''} className="input input-bordered w-full" readOnly />
                     <button type="submit" className="btn btn-primary w-full">Add Artwork</button>
                 </form>
             </div>
