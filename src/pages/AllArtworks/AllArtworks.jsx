@@ -3,6 +3,7 @@ import { useAxios } from '../../hook/useAxios';
 import ArtsCard from '../../components/ArtsCard';
 import Loader from '../../components/Loader';
 import { useTypewriter, Cursor } from 'react-simple-typewriter';
+import toast from 'react-hot-toast';
 
 const AllArtworks = () => {
     const [text] = useTypewriter({
@@ -29,11 +30,10 @@ const AllArtworks = () => {
                 const publicArtworks = res.data.result.filter(
                     (art) => art.visibility === true || 'true'
                 );
-                // console.log(publicArtworks)
                 setArtworks(publicArtworks)
                 setLoading(false)
             })
-            .catch(err => console.error(err));
+            .catch(err => toast.error(err));
     }, [axiosInstance]);
     const filteredArtworks = artworks.filter(art =>
         art.artistName?.toLowerCase().includes(search.toLowerCase())

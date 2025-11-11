@@ -21,7 +21,6 @@ const Navbar = () => {
     const handleTheme = (checked) => {
         setTheme(checked ? "dark" : "light")
     }
-    console.log(user?.displayName || {});
     const handleSignOut = () => {
         signOutUser()
             .then(() => {
@@ -29,7 +28,6 @@ const Navbar = () => {
             })
             .catch((error) => {
                 toast.error("SignOut Failed !");
-                console.error(error);
             });
     };
     if(loading){
@@ -45,7 +43,7 @@ const Navbar = () => {
                         </div>
                         <ul
                             tabIndex="-1"
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-white">
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-gray">
                             <li><NavLink to='/'>Home</NavLink></li>
                             <li><NavLink to='/all-artworks'>Explore Artworks</NavLink></li>
                             <li><NavLink to='/add-artworks'>Add Artworks</NavLink></li>

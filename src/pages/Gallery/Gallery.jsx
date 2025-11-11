@@ -16,7 +16,6 @@ const Gallery = () => {
         setLoading(true)
         axiosSecure.get(`/my-gallery?email=${user.email}`)
             .then(res => {
-                console.log(res?.data?.result);
                 setArts(res.data?.result);
                 setLoading(false)
 
@@ -24,7 +23,7 @@ const Gallery = () => {
             .catch(err => console.error(err));
     }, [user, axiosSecure]);
     const handleDelete = (id) => {
-        console.log(id)
+
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -37,7 +36,6 @@ const Gallery = () => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`/delete-artwork?id=${id}`)
                     .then(res => {
-                        console.log(res.data.result)
                         setArts(prevArts => prevArts.filter(art => art._id !== id));
                     })
                 Swal.fire({

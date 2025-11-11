@@ -10,11 +10,9 @@ import { useAxios } from '../hook/useAxios';
 
 const ArtworkDetails = () => {
     const { user } = use(AuthContext);
-    console.log(user)
     const axiosSecure = useAxiosSecure()
     const axiosInstance = useAxios();
     const { id } = useParams();
-    console.log(id);
     const [details, setDetails] = useState(null)
     const [allArtByArtist, setAllArtByArtist] = useState([])
     useEffect(() => {
@@ -22,20 +20,17 @@ const ArtworkDetails = () => {
             .then(res => {
                 setDetails(res.data.result)
                 setAllArtByArtist(res.data.allArtByArtist)
-                console.log(res.data.allArtByArtist)
             })
     }, [id, axiosSecure])
     const handleLikes = () => {
         axiosInstance.put(`/art-details/${id}/like`)
             .then(res => {
-                console.log(res)
                 setDetails(prev => ({
                     ...prev,
                     likes: prev.likes + 1
                 }))
             })
     }
-    console.log(details)
 
     const handleFevorites = () => {
         const favorite = {

@@ -8,16 +8,14 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const { signInUser, signInWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
-    console.log(navigate)
     const location = useLocation();
-    console.log(location)
     const handleLogIn = (event) => {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
         signInUser(email, password)
             .then((result) => {
-                console.log(result.user);
+                toast.success('Login Successfully')
                 event.target.reset();
                 navigate(location.state || "/");
             })
@@ -30,7 +28,7 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then((result) => {
-                console.log(result.user);
+                toast.success('Login Successfully')
                 navigate(location.state || "/");
             })
             .catch((error) => {

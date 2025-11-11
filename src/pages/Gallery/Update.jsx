@@ -7,10 +7,8 @@ import toast from 'react-hot-toast';
 const Update = () => {
     const navigate = useNavigate()
     const { id } = useParams();
-    // console.log(id)
     const axiosSecure = useAxiosSecure();
     const [art, setArts] = useState([]);
-    // console.log(art)
     useEffect(() => {
         axiosSecure.get(`/update/${id}`)
             .then(res => {
@@ -41,8 +39,7 @@ const Update = () => {
             title,
             visibility
         }
-        console.log(updatedArtWork)
-        console.log(updateArtwork)
+
         axiosSecure.patch(`/update-art/${id}`, updatedArtWork)
             .then(res => {
                 console.log(res?.data?.result);

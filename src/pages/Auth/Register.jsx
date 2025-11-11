@@ -10,11 +10,11 @@ const Register = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(result => {
-                console.log(result)
+                toast.success('Registation Successfully')
                 navigate('/')
             })
             .catch(error => {
-                console.log(error)
+                toast.error(error)
             })
     }
     const [passwordError, setPasswordError] = useState("")
@@ -24,32 +24,31 @@ const Register = () => {
         const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
         return regex.test(password);
     };
-   const handleRegister = (event) => {
-    event.preventDefault();
-    const displayName = event.target.displayName.value;
-    const photoURL = event.target.photoURL.value;
-    const email = event.target.email.value;
-    const password = event.target.password.value; 
+    const handleRegister = (event) => {
+        event.preventDefault();
+        const displayName = event.target.displayName.value;
+        const photoURL = event.target.photoURL.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
 
-    if (!validatePassword(password)) {
-        setPasswordError("Password must contain uppercase, lowercase and at least 6 characters");
-        return;
-    } else {
-        setPasswordError('');
-    }
+        if (!validatePassword(password)) {
+            setPasswordError("Password must contain uppercase, lowercase and at least 6 characters");
+            return;
+        } else {
+            setPasswordError('');
+        }
 
-    createUser(email, password)
-        .then((result) => {
-            updateUserProfile(displayName, photoURL);
-            console.log(result.user)
-            navigate('/')
-            toast.success("User created successfully!");
-        })
-        .catch(error => {
-            console.log(error);
-            toast.error(error.message);
-        });
-};
+        createUser(email, password)
+            .then((result) => {
+                updateUserProfile(displayName, photoURL);
+                navigate('/')
+                toast.success("User created successfully!");
+            })
+            .catch(error => {
+                console.log(error);
+                toast.error(error.message);
+            });
+    };
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="w-full  border-gray-500 border-2 max-w-md p-6 rounded-lg shadow-md">

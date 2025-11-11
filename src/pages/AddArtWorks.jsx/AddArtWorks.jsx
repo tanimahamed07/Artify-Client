@@ -31,7 +31,6 @@ const AddArtWorks = () => {
         };
         axiosSecure.post('/add-artworks', artwork)
             .then(res => {
-                console.log(res.data.result.insertedId)
                 if (res.data.result.insertedId) {
                     toast.success('Added Successful')
                     navigate('/my-gallary')

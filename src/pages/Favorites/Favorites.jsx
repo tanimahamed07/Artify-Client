@@ -9,7 +9,6 @@ const Favorites = () => {
     const axiosSecure = useAxiosSecure()
     const [art, setArt] = useState([]);
     const [loading, setLoading] = useState(true);
-    console.log(user)
     useEffect(() => {
         setLoading(true)
         axiosSecure.get(`/favorites-list?email=${user?.email}`)
@@ -20,7 +19,6 @@ const Favorites = () => {
             })
     }, [user , axiosSecure])
     const handleUnfavorite = (id) => {
-        console.log(id)
         axiosSecure.delete(`/unFevorites?id=${id}`)
             .then(res => {
                 if (res.data.success) {
