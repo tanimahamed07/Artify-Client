@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { AuthContext } from '../../context/AuthContext';
 import { Link, useNavigate } from 'react-router';
+import { FcGoogle } from 'react-icons/fc';
 
 const Register = () => {
     const { signInWithGoogle, createUser, updateUserProfile } = use(AuthContext);
@@ -103,14 +104,9 @@ const Register = () => {
                 <div className="divider">OR</div>
 
                 <button onClick={handleGoogleSignIn}
-
-                    className="btn btn-outline btn-success w-full"
-                >
-                    Continue with Google
+                    className="btn btn-outline btn-success w-full">
+                    <FcGoogle  size={24}/>  Continue with Google
                 </button>
-
-
-
                 <p className="mt-4 text-center">
                     Already have an account?{" "}
                     <Link to="/login" className="text-primary font-semibold">

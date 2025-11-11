@@ -3,10 +3,11 @@ import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { Link, useNavigate, useLocation } from 'react-router'
 import { AuthContext } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
+import { FcGoogle } from 'react-icons/fc';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { signInUser, signInWithGoogle } = useContext(AuthContext);
+    const { signInUser, signInWithGoogle, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const handleLogIn = (event) => {
@@ -15,12 +16,14 @@ const Login = () => {
         const password = event.target.password.value;
         signInUser(email, password)
             .then((result) => {
+                setLoading(false)
                 toast.success('Login Successfully')
                 event.target.reset();
                 navigate(location.state || "/");
             })
             .catch((error) => {
                 console.error(error);
+                setLoading(false)
                 toast.error(error.message)
             });
     };
@@ -78,7 +81,7 @@ const Login = () => {
                     onClick={handleGoogleSignIn}
                     className="btn btn-outline btn-success w-full"
                 >
-                    Continue with Google
+                    <FcGoogle  size={24}/> Continue with Google
                 </button>
 
                 <p className="mt-4 text-center">
