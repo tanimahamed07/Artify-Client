@@ -4,10 +4,11 @@ import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import logo from '../assets/ChatGPT Image Nov 10, 2025, 11_00_39 PM.png'
 import { Fade } from 'react-awesome-reveal';
+import Loader from './Loader';
 
 
 const Navbar = () => {
-    const { user, signOutUser } = use(AuthContext)
+    const { user, signOutUser, loading } = use(AuthContext)
     const [theme, setTheme] = useState(localStorage.getItem('theme') || "light")
 
     useEffect(() => {
@@ -32,8 +33,11 @@ const Navbar = () => {
                 console.error(error);
             });
     };
+    if(loading){
+        return <Loader></Loader>
+    }
     return (
-        <div className='px-10 border-b-2 border-gray-500 shadow-xl'>
+        <div className= 'px-4 md:px-10 border-b-2 border-gray-500 shadow-xl'>
             <div className=" navbar bg-base-100 " >
                 <div className=" navbar-start">
                     <div className="dropdown">
@@ -55,7 +59,7 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-center  hidden lg:flex">
                     <Fade cascade damping={0.2} triggerOnce={true}>
-                        <ul className="menu menu-horizontal px-1 text-secondery">
+                        <ul className="menu menu-horizontal px-1 text-secondery gap-3">
                             <li className=''><NavLink to='/'>Home</NavLink></li>
                             <li><NavLink to='/all-artworks'>Explore Artworks</NavLink></li>
                             <li><NavLink to='/add-artworks'>Add Artworks</NavLink></li>
@@ -64,7 +68,7 @@ const Navbar = () => {
                         </ul>
                     </Fade>
                 </div>
-                <div className="navbar-end flex items-center gap-10">
+                <div className="navbar-end flex items-center gap-5 md:gap-10">
                     <input onChange={(e) => handleTheme(e.target.checked)} type="checkbox" value="synthwave" className="toggle theme-controller" />
                     {user ? (
                         <div className="relative group">

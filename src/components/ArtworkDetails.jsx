@@ -14,6 +14,7 @@ const ArtworkDetails = () => {
     const axiosSecure = useAxiosSecure()
     const axiosInstance = useAxios();
     const { id } = useParams();
+    console.log(id);
     const [details, setDetails] = useState(null)
     const [allArtByArtist, setAllArtByArtist] = useState([])
     useEffect(() => {
@@ -21,6 +22,7 @@ const ArtworkDetails = () => {
             .then(res => {
                 setDetails(res.data.result)
                 setAllArtByArtist(res.data.allArtByArtist)
+                console.log(res.data.allArtByArtist)
             })
     }, [id, axiosSecure])
     const handleLikes = () => {

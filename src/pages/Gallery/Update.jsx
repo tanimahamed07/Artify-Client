@@ -52,7 +52,7 @@ const Update = () => {
     }
     return (
         <div className="flex justify-center items-center py-10">
-            <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-md">
+            <div className="w-full max-w-lg p-6  rounded-lg shadow-md border-2 border-gray-500">
                 <h2 className="text-2xl font-bold text-center mb-6">Update Artwork</h2>
                 <form onSubmit={updateArtwork} className="space-y-4">
                     <label htmlFor="">Photo Url</label>

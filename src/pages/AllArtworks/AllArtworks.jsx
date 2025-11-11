@@ -113,7 +113,7 @@ const AllArtworks = () => {
             )}
             {!search && !category && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {artworks.map(art => <ArtsCard key={art._id} art={art} />)}
+                    {artworks.map((art , index) => <ArtsCard index={index} key={art._id} art={art} />)}
                 </div>
             )}
         </div>

@@ -42,6 +42,7 @@ const Register = () => {
         .then((result) => {
             updateUserProfile(displayName, photoURL);
             console.log(result.user)
+            navigate('/')
             toast.success("User created successfully!");
         })
         .catch(error => {

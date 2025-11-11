@@ -4,9 +4,9 @@ const CommunityHighlights = () => {
     return (
             <section>
                 <h2 className="text-3xl font-bold mb-6">Community Highlights</h2>
-                <Fade direction='up' cascade={false} delay={200} triggerOnce={true}>
+                <Fade cascade={false} delay={200} triggerOnce={true}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div className="card card-compact bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-gray-200">
+                    <div className="card card-compact bg-base-100 shadow-xl transform hover:scale-102 hover:shadow-lg duration-300 ease-in-out border-2 border-gray-500">
                         <figure>
                             <img
                                 src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
@@ -17,14 +17,17 @@ const CommunityHighlights = () => {
                         <div className="card-body">
                             <h3 className="card-title text-lg font-bold">Sunset Bliss</h3>
                             <p className="text-sm text-gray-500">by Alice Johnson</p>
+                            <Fade 
+                            direction='up'
+                            triggerOnce={true}>
                             <div className="flex justify-between items-center mt-2">
                                 <span className="badge badge-info">Landscape</span>
                                 <button className="btn btn-primary btn-sm">View Details</button>
                             </div>
+                            </Fade>
                         </div>
                     </div>
-
-                    <div className="card card-compact bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-gray-200">
+                    <div className="card card-compact bg-base-100 shadow-xl transition-shadow border border-gray-500 transform hover:scale-102 hover:shadow-lg duration-300 ease-in-out">
                         <figure>
                             <img
                                 src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
@@ -35,13 +38,17 @@ const CommunityHighlights = () => {
                         <div className="card-body">
                             <h3 className="card-title text-lg font-bold">Mountain Escape</h3>
                             <p className="text-sm text-gray-500">by John Doe</p>
+                            <Fade 
+                            direction='up'
+                            triggerOnce={true} >
                             <div className="flex justify-between items-center mt-2">
                                 <span className="badge badge-info">Adventure</span>
                                 <button className="btn btn-primary btn-sm">View Details</button>
                             </div>
+                            </Fade>
                         </div>
                     </div>
-                    <div className="card card-compact bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-gray-200">
+                    <div className="card card-compact bg-base-100 shadow-xl transition-shadow border border-gray-500 transform hover:scale-102 hover:shadow-lg duration-300 ease-in-out">
                         <figure>
                             <img
                                 src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438"
@@ -52,10 +59,14 @@ const CommunityHighlights = () => {
                         <div className="card-body">
                             <h3 className="card-title text-lg font-bold">Ocean Calm</h3>
                             <p className="text-sm text-gray-500">by Emma Williams</p>
+                              <Fade 
+                            direction='up'
+                            triggerOnce={true} >
                             <div className="flex justify-between items-center mt-2">
                                 <span className="badge badge-info">Seascape</span>
                                 <button className=" btn btn-outline-primary btn-primary btn-sm">View Details</button>
                             </div>
+                            </Fade>
                         </div>
                     </div>
                 </div>

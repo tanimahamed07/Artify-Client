@@ -62,8 +62,8 @@ const AddArtWorks = () => {
                         <option value="true">Public</option>
                         <option value="false">Private</option>
                     </select>
-                    <input type="text" value={user?.displayName || ''} className="input input-bordered w-full"  />
-                    <input type="email" value={user?.email || ''} className="input input-bordered w-full"  />
+                    <input type="text" value={user?.displayName || ''} className="input input-bordered w-full" readOnly />
+                    <input type="email" value={user?.email || ''} className="input input-bordered w-full" readOnly />
                     <button type="submit" className="btn btn-primary w-full">Add Artwork</button>
                 </form>
             </div>
