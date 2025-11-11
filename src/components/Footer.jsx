@@ -1,12 +1,14 @@
 import React from 'react';
 import { FaFacebookF, FaXTwitter } from 'react-icons/fa6';
+import logo from '../assets/ChatGPT Image Nov 10, 2025, 11_00_39 PM.png'
 
 const Footer = () => {
     return (
-        <footer className="bg-neutral text-neutral-content py-10 mt-10 border-t-2 border-gray-500">
+        <footer className="bg-neutral text-neutral-content py-10 mt-10 border-t-2 border-gray-400">
             <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <img className='w-[60px]' src='https://i.ibb.co/0yF92G1H/Chat-GPT-Image-Nov-10-2025-11-00-39-PM.png' alt="" />
+                                        <img className='w-[90px]' src={logo} alt="" />
+                    
                     <h2 className="text-xl font-bold mb-4">Artify</h2>
                     <p className="text-gray-400">
                         A creative platform for artists to showcase their artworks, connect with the community, and get inspired.
@@ -30,10 +32,7 @@ const Footer = () => {
                         <FaXTwitter size={24} />
                     </div>
                 </div>
-
             </div>
-
-
             <div className="text-center text-gray-500 mt-10">
                 &copy; {new Date().getFullYear()} Artify. All rights reserved.
             </div>

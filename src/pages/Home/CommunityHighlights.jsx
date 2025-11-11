@@ -1,9 +1,10 @@
 import React from 'react';
-
+import { Fade } from "react-awesome-reveal";
 const CommunityHighlights = () => {
     return (
             <section>
                 <h2 className="text-3xl font-bold mb-6">Community Highlights</h2>
+                <Fade direction='up' cascade={false} delay={200} triggerOnce={true}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div className="card card-compact bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-gray-200">
                         <figure>
@@ -58,6 +59,7 @@ const CommunityHighlights = () => {
                         </div>
                     </div>
                 </div>
+                    </Fade>
             </section>
     );
 };

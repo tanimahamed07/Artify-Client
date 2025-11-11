@@ -2,21 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { useAxios } from '../../hook/useAxios';
 import CommunityHighlights from './CommunityHighlights';
 import TopArtist from './TopArtist';
-import { BiSolidLike } from 'react-icons/bi';
-import { Link } from 'react-router';
 import ArtsCard from '../../components/ArtsCard';
+import Loader from '../../components/Loader';
 
 const FeaturedArtworks = () => {
     const axiosInstance = useAxios();
     const [artworks, setArtworks] = useState([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
+        setLoading(true)
         axiosInstance.get('/latest-artworks')
             .then(res => {
                 console.log(res.data.result)
                 setArtworks(res.data.result)
+                setLoading(false)
             })
             .catch(err => console.error(err));
     }, [axiosInstance]);
+    if (loading) {
+        return <Loader></Loader>
+    }
 
     return (
         <div className="container mx-auto p-4 space-y-12">

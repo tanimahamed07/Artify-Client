@@ -1,39 +1,23 @@
-import React, { useRef } from "react";
-import ReactImageGallery from "react-image-gallery";
-import "react-image-gallery/styles/css/image-gallery.css";
-
-import slider1 from "../../assets/slider-3.png";
-import slider2 from "../../assets/slider-2.png";
-import slider3 from "../../assets/slider-1.png";
-
-const images = [
-  { original: slider1, originalAlt: "Slide 1" },
-  { original: slider2, originalAlt: "Slide 2" },
-  { original: slider3, originalAlt: "Slide 3" },
-];
-
+import React from 'react';
+import bannerPng from '../../assets/banner.png'
 const Banner = () => {
-  const galleryRef = useRef(null);
-  const handleSlideClick = () => {
-    if (galleryRef.current) {
-      galleryRef.current.pause();
-    }
-  };
-
   return (
-    <ReactImageGallery
-      ref={galleryRef}
-      items={images}
-      showThumbnails={false}
-      showFullscreenButton={false}
-      showPlayButton={false}
-      showNav={false} 
-      autoPlay={true} 
-      infinite={true}
-      slideInterval={3000}
-      showBullets={true}
-      onClick={handleSlideClick} // click disables autoplay
+    <div className="hero bg-base-200">
+  <div className="hero-content flex-col lg:flex-row-reverse">
+    <img
+      src={bannerPng}
+      className="max-w-sm rounded-lg shadow-2xl"
     />
+    <div>
+      <h1 className="text-5xl font-bold">Box Office News!</h1>
+      <p className="py-6">
+        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
+        quasi. In deleniti eaque aut repudiandae et a id nisi.
+      </p>
+      <button className="btn btn-primary">Get Started</button>
+    </div>
+  </div>
+</div>
   );
 };
 

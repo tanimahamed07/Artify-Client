@@ -1,28 +1,36 @@
 import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useAxios } from '../../hook/useAxios';
 import FavoritesCard from './FavoritesCard';
+import Loader from '../../components/Loader';
+import useAxiosSecure from '../../hook/useAxiosSecure';
 
 const Favorites = () => {
     const { user } = use(AuthContext);
-    const axiosInstance = useAxios()
+    const axiosSecure = useAxiosSecure()
     const [art, setArt] = useState([]);
+    const [loading, setLoading] = useState(true);
     console.log(user)
     useEffect(() => {
-        axiosInstance.get(`/favorites-list?email=${user?.email}`)
+        setLoading(true)
+        axiosSecure.get(`/favorites-list?email=${user?.email}`)
             .then(res => {
                 console.log(res.data.result)
+                setLoading(false)
                 setArt(res.data.result)
             })
-    }, [user])
+    }, [user , axiosSecure])
     const handleUnfavorite = (id) => {
         console.log(id)
-        axiosInstance.delete(`/unFevorites?id=${id}`)
+        axiosSecure.delete(`/unFevorites?id=${id}`)
             .then(res => {
                 if (res.data.success) {
+                    setLoading(false)
                     setArt(prev => prev.filter(a => a._id !== id));
                 }
             })
+    }
+    if(loading){
+        return <Loader></Loader>
     }
     return (
         <section className='container mx-auto p-4 space-y-12'>

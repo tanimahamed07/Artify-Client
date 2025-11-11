@@ -35,7 +35,7 @@ const GalleryCard = ({ art, handleDelete, }) => {
                                 Update
                             </Link>
                             {/* Open the modal using document.getElementById('ID').showModal() method */}
-                            <dialog ref={updateModalRef} className="modal modal-bottom sm:modal-middle">
+                            {/* <dialog ref={updateModalRef} className="modal modal-bottom sm:modal-middle">
                                 <div className="modal-box">
                                     <h2 className="text-2xl font-bold text-center mb-6">Update Your Artwork</h2>
                                     <div className="modal-action">
@@ -54,11 +54,11 @@ const GalleryCard = ({ art, handleDelete, }) => {
                                             <button type="submit" className="btn btn-primary w-full">Update Artwork</button>
 
                                             {/* if there is a button in form, it will close the modal */}
-                                            <button onClick={updateModal} className="btn">Close</button>
+                                            {/* <button onClick={updateModal} className="btn">Close</button>
                                         </form>
                                     </div>
                                 </div>
-                            </dialog>
+                            </dialog> */} 
                         </div>
                     </div>
                 </div>

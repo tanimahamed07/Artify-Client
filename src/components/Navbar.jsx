@@ -2,21 +2,24 @@ import React, { use, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
+import logo from '../assets/ChatGPT Image Nov 10, 2025, 11_00_39 PM.png'
+import { Fade } from 'react-awesome-reveal';
+
 
 const Navbar = () => {
     const { user, signOutUser } = use(AuthContext)
-   const [theme, setTheme] = useState(localStorage.getItem('theme') || "light")
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || "light")
 
-  useEffect(() => {
-    const html = document.querySelector('html')
-     html.setAttribute("data-theme", theme)
-     localStorage.setItem("theme", theme)
-  }, [theme])
+    useEffect(() => {
+        const html = document.querySelector('html')
+        html.setAttribute("data-theme", theme)
+        localStorage.setItem("theme", theme)
+    }, [theme])
 
 
-  const handleTheme = (checked) => {
-    setTheme(checked ? "dark": "light")
-  }
+    const handleTheme = (checked) => {
+        setTheme(checked ? "dark" : "light")
+    }
     // console.log(user.displayName)
     console.log(user?.displayName || {});
     const handleSignOut = () => {
@@ -47,17 +50,19 @@ const Navbar = () => {
                             <li><NavLink to='/favorites'>My Favorites</NavLink></li>
                         </ul>
                     </div>
-                    <img className='w-[60px]' src='https://i.ibb.co/0yF92G1H/Chat-GPT-Image-Nov-10-2025-11-00-39-PM.png' alt="" />
+                    <img className='max-w-[60px]' src={logo} alt="" />
                     <a className="text-xl font-bold  text-primary"> ARTIFY</a>
                 </div>
                 <div className="navbar-center  hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1 text-secondery">
-                        <li className=''><NavLink to='/'>Home</NavLink></li>
-                        <li><NavLink to='/all-artworks'>Explore Artworks</NavLink></li>
-                        <li><NavLink to='/add-artworks'>Add Artworks</NavLink></li>
-                        <li><NavLink to='/my-gallary'>My Gallery</NavLink></li>
-                        <li><NavLink to='/favorites'>My Favorites</NavLink></li>
-                    </ul>
+                    <Fade cascade damping={0.2} triggerOnce={true}>
+                        <ul className="menu menu-horizontal px-1 text-secondery">
+                            <li className=''><NavLink to='/'>Home</NavLink></li>
+                            <li><NavLink to='/all-artworks'>Explore Artworks</NavLink></li>
+                            <li><NavLink to='/add-artworks'>Add Artworks</NavLink></li>
+                            <li><NavLink to='/my-gallary'>My Gallery</NavLink></li>
+                            <li><NavLink to='/favorites'>My Favorites</NavLink></li>
+                        </ul>
+                    </Fade>
                 </div>
                 <div className="navbar-end flex items-center gap-10">
                     <input onChange={(e) => handleTheme(e.target.checked)} type="checkbox" value="synthwave" className="toggle theme-controller" />
@@ -68,7 +73,6 @@ const Navbar = () => {
                                 alt={user.displayName || "User"}
                                 className="w-10 h-10 rounded-full cursor-pointer"
                             />
-                            {/* Hover card */}
                             <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-40">
                                 <p className="font-semibold text-gray-700 mb-2">{user.displayName || "User"}</p>
                                 <button

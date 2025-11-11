@@ -1,23 +1,25 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useAxios } from '../../hook/useAxios';
 import GalleryCard from './GalleryCard';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../hook/useAxiosSecure';
+import Loader from '../../components/Loader';
 
 const Gallery = () => {
     const { user } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure()
-    const axiosInstance = useAxios();
+
     const [arts, setArts] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-
+        setLoading(true)
         axiosSecure.get(`/my-gallery?email=${user.email}`)
             .then(res => {
                 console.log(res?.data?.result);
                 setArts(res.data?.result);
-                
+                setLoading(false)
+
             })
             .catch(err => console.error(err));
     }, [user, axiosSecure]);
@@ -33,7 +35,7 @@ const Gallery = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosInstance.delete(`/delete-artwork?id=${id}`)
+                axiosSecure.delete(`/delete-artwork?id=${id}`)
                     .then(res => {
                         console.log(res.data.result)
                         setArts(prevArts => prevArts.filter(art => art._id !== id));
@@ -45,6 +47,9 @@ const Gallery = () => {
                 });
             }
         });
+    }
+    if(loading){
+        return <Loader></Loader>
     }
     return (
 

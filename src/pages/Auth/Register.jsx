@@ -2,14 +2,16 @@ import React, { use, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { AuthContext } from '../../context/AuthContext';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const Register = () => {
     const { signInWithGoogle, createUser, updateUserProfile } = use(AuthContext);
+    const navigate = useNavigate()
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(result => {
                 console.log(result)
+                navigate('/')
             })
             .catch(error => {
                 console.log(error)

@@ -10,3 +10,8 @@
 
 @custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
 
+
+
+.active {
+  @apply bg-[#FF6F61] text-white rounded ;
+}

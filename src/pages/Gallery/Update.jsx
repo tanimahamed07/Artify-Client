@@ -1,22 +1,24 @@
 import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useAxios } from '../../hook/useAxios';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import useAxiosSecure from '../../hook/useAxiosSecure';
 
 const Update = () => {
+    const navigate = useNavigate()
     const { id } = useParams();
     console.log(id)
-    const axiosInstance = useAxios();
+    const axiosSecure = useAxiosSecure();
     const [art, setArts] = useState([]);
     console.log(art)
     useEffect(() => {
-        axiosInstance.get(`/update/${id}`)
+        axiosSecure.get(`/update/${id}`)
             .then(res => {
                 console.log(res.data.result);
                 setArts(res.data.result);
             })
             .catch(err => console.error(err));
-    }, [id, axiosInstance]);
+    }, [id, axiosSecure]);
 
     const updateArtwork = (e) => {
         e.preventDefault();
@@ -40,13 +42,12 @@ const Update = () => {
             title,
             visibility
         }
-        axiosInstance.patch(`/update-art/${id}`, updatedArtWork)
+        axiosSecure.patch(`/update-art/${id}`, updatedArtWork)
             .then(res => {
                 console.log(res?.data?.result);
                 setArts(res.data?.result);
+                navigate('/my-gallary')
             })
-
-
         console.log(updatedArtWork)
     }
     return (
@@ -59,7 +60,11 @@ const Update = () => {
                     <label>Title</label>
                     <input defaultValue={art.title} type="text" placeholder="Title" name="title" className="input input-bordered w-full" required />
                     <label>Category</label>
-                    <input defaultValue={art.category} type="text" placeholder="Category" name="category" className="input input-bordered w-full" required />
+                    <select name="category" className="input input-bordered w-full" defaultValue="Watercolor">
+                        <option value="Watercolor">Watercolor</option>
+                        <option value="Acrylic">Acrylic</option>
+                        <option value="Oil Painting">Oil Painting</option>
+                    </select>
                     <label>Medium/Tools</label>
                     <input defaultValue={art.medium} type="text" placeholder="Medium / Tools" name="medium" className="input input-bordered w-full" required />
                     <label>Description</label>
