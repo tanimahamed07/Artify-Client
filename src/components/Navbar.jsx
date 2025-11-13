@@ -9,7 +9,7 @@ import Loader from "./Loader";
 const Navbar = () => {
   const { user, signOutUser, loading } = use(AuthContext);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   useEffect(() => {
     const html = document.querySelector("html");
     html.setAttribute("data-theme", theme);
@@ -106,13 +106,22 @@ const Navbar = () => {
             className="toggle theme-controller"
           />
           {user ? (
-            <div className="relative group">
+            <div
+              className="relative group"
+              onMouseEnter={() => setDropdownOpen(true)}
+              onMouseLeave={() => setDropdownOpen(false)}
+            >
               <img
                 src={user.photoURL || "https://via.placeholder.com/40"}
                 alt={user.displayName || "User"}
                 className="w-10 h-10 rounded-full cursor-pointer"
+                onClick={() => setDropdownOpen((prev) => !prev)}
               />
-              <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-40">
+              <div
+                className={`absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg p-3 transition-opacity duration-200 z-40 ${
+                  dropdownOpen ? "opacity-100 visible" : "opacity-0 invisible"
+                }`}
+              >
                 <p className="font-semibold text-gray-700 mb-2">
                   {user.displayName || "User"}
                 </p>
