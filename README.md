@@ -1,6 +1,6 @@
 # Artify – A Creative Artwork Showcase Platform 🎨
 
-[Live Site Link](https://your-live-site-url.com)  
+[Live Site Link](https://artify-two-liart.vercel.app/)
 
 Artify is an online platform for artists to showcase their artwork, explore other artists' creations, curate favorites, and connect with a community of art lovers. With a modern, responsive design and interactive features, Artify makes art sharing seamless and enjoyable.
 
