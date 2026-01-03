@@ -97,7 +97,7 @@ const AllArtworks = () => {
       {search && (
         <div className="mb-10">
           <h3 className="text-2xl font-semibold mb-4">Search Results</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredArtworks.length > 0 ? (
               filteredArtworks.map((art) => (
                 <ArtsCard key={art._id} art={art} />
@@ -111,7 +111,7 @@ const AllArtworks = () => {
       {category && (
         <div className="mb-10">
           <h3 className="text-2xl font-semibold mb-4">{category} Artworks</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categoryFilteredArtworks.length > 0 ? (
               categoryFilteredArtworks.map((art) => (
                 <ArtsCard key={art._id} art={art} />
@@ -123,7 +123,7 @@ const AllArtworks = () => {
         </div>
       )}
       {!search && !category && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {artworks.map((art, index) => (
             <ArtsCard index={index} key={art._id} art={art} />
           ))}
