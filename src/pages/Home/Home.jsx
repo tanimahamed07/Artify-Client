@@ -1,11 +1,12 @@
 import React from "react";
 import Banner from "./Banner";
 import FeaturedArtworks from "./FeaturedArtworks";
-import TopArtist from "./Testimonials";
+import TopArtist from "./TopArtist";
 import ArtStats from "./ArtStats";
-import ArtCategories from "./ArtCategories";
 import Testimonials from "./UserReview";
-import Newsletter from "./NewsLetter";
+import WhyUChoseUs from "./WhyUChoseUs";
+import Faq from "./Faq";
+import Call2Actions from "./Call2Actions";
 
 const Home = () => {
   return (
@@ -13,9 +14,11 @@ const Home = () => {
       <Banner></Banner>
       <ArtStats></ArtStats>
       <FeaturedArtworks></FeaturedArtworks>
-      <ArtCategories></ArtCategories>
+      <TopArtist></TopArtist>
       <Testimonials></Testimonials>
-      <Newsletter></Newsletter>
+      <WhyUChoseUs></WhyUChoseUs>
+      <Call2Actions></Call2Actions>
+      <Faq></Faq>
     </div>
   );
 };
