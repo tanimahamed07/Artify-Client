@@ -12,6 +12,7 @@ import Favorites from "../pages/Favorites/Favorites.jsx";
 import Gallery from "../pages/Gallery/Gallery.jsx";
 import Update from "../pages/Gallery/Update.jsx";
 import Error from "../components/Error.jsx";
+import Dashboard from "../layouts/Dashboard.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -66,11 +67,16 @@ export const router = createBrowserRouter([
           </PrivateRouts>
         ),
       },
+
       {
         path: "/Update/:id",
         element: <Update></Update>,
       },
     ],
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard></Dashboard>,
   },
   {
     path: "*",
