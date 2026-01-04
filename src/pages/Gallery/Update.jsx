@@ -1,87 +1,226 @@
-import React, {  useEffect, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-import { useNavigate, useParams } from 'react-router';
-import useAxiosSecure from '../../hook/useAxiosSecure';
-import toast from 'react-hot-toast';
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate, useParams } from "react-router";
+import toast from "react-hot-toast";
+import useAxiosSecure from "../../hook/useAxiosSecure";
+import { Fade } from "react-awesome-reveal";
+import { HiOutlineCloudArrowUp, HiOutlineInformationCircle } from "react-icons/hi2";
 
 const Update = () => {
-    const navigate = useNavigate()
-    const { id } = useParams();
-    const axiosSecure = useAxiosSecure();
-    const [art, setArts] = useState([]);
-    useEffect(() => {
-        axiosSecure.get(`/update/${id}`)
-            .then(res => {
-                console.log(res.data.result);
-                setArts(res.data.result);
-            })
-            .catch(err => console.error(err));
-    }, [id, axiosSecure]);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const axiosSecure = useAxiosSecure();
+  const { user } = useContext(AuthContext);
 
-    const updateArtwork = (e) => {
-        e.preventDefault();
-        const imageUrl = e.target.imageUrl.value;
-        const title = e.target.title.value;
-        const category = e.target.category.value;
-        const medium = e.target.medium.value;
-        const description = e.target.description.value;
-        const dimensions = e.target.dimensions.value;
-        const price = e.target.price.value;
-        const visibility = e.target.visibility.value === "true"
+  const [art, setArt] = useState(null); // initially null to show loading if needed
 
-        const updatedArtWork = {
-            category,
-            description,
-            dimensions,
-            imageUrl,
-            medium,
-            price,
-            title,
-            visibility
+  useEffect(() => {
+    axiosSecure.get(`/update/${id}`)
+      .then((res) => {
+        setArt(res.data.result);
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("Failed to load artwork data");
+      });
+  }, [id, axiosSecure]);
+
+  const handleUpdateArtwork = (event) => {
+    event.preventDefault();
+
+    const updatedArtwork = {
+      imageUrl: event.target.imageUrl.value,
+      title: event.target.title.value,
+      category: event.target.category.value,
+      medium: event.target.medium.value,
+      description: event.target.description.value,
+      dimensions: event.target.dimensions.value || "",
+      price: event.target.price?.value || "",
+      visibility: event.target.visibility.value === "true",
+    };
+
+    axiosSecure.patch(`/update-art/${id}`, updatedArtwork)
+      .then((res) => {
+        if (res.data.result.modifiedCount > 0 || res.data.result.matchedCount > 0) {
+          toast.success("Artwork Updated Successfully!");
+          navigate("/dashboard/my-gallary");
+        } else {
+          toast.error("No changes detected or update failed!");
         }
+      })
+      .catch(() => {
+        toast.error("Failed to update artwork!");
+      });
 
-        axiosSecure.patch(`/update-art/${id}`, updatedArtWork)
-            .then(res => {
-                console.log(res?.data?.result);
-                toast.success('Updated done')
-                setArts(res.data?.result);
-                navigate('/my-gallary')
-            })
-    }
-    return (
-        <div className="flex justify-center items-center py-10">
-            <div className="w-full max-w-lg p-6  rounded-lg shadow-md border-2 border-gray-500">
-                <h2 className="text-2xl font-bold text-center mb-6">Update Artwork</h2>
-                <form onSubmit={updateArtwork} className="space-y-4">
-                    <label htmlFor="">Photo Url</label>
-                    <input defaultValue={art.imageUrl} type="text" placeholder="Image URL" name="imageUrl" className="input input-bordered w-full" required />
-                    <label>Title</label>
-                    <input defaultValue={art.title} type="text" placeholder="Title" name="title" className="input input-bordered w-full" required />
-                    <label>Category</label>
-                    <select name="category" className="input input-bordered w-full" defaultValue="Watercolor">
-                        <option value="Watercolor">Watercolor</option>
-                        <option value="Acrylic">Acrylic</option>
-                        <option value="Oil Painting">Oil Painting</option>
+    event.target.reset();
+  };
+
+  const inputClass = "w-full bg-base-100 border border-base-300 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl px-4 py-3 outline-none transition-all duration-300 font-medium placeholder:text-neutral/40 placeholder:font-normal";
+
+  // Show a simple loader until data is loaded
+  if (!art) {
+    return <div className="text-center py-20">Loading artwork...</div>;
+  }
+
+  return (
+    <div className="max-w-4xl mx-auto py-4">
+      <Fade direction="up" triggerOnce>
+        <div className="relative group">
+          {/* Decorative Frame */}
+          <div className="absolute -inset-2 border border-primary/20 rounded-[2.5rem] rotate-1 group-hover:rotate-0 transition-transform duration-500 pointer-events-none"></div>
+          <div className="relative z-10 bg-base-100 border border-base-200 rounded-[2rem] shadow-2xl p-8 lg:p-12">
+            {/* Header Section */}
+            <div className="text-center mb-10 space-y-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20 mb-2">
+                <HiOutlineCloudArrowUp className="text-primary" size={18} />
+                <p className="text-primary font-bold tracking-widest uppercase text-[10px]">
+                  Curator Studio
+                </p>
+              </div>
+              <h2 className="text-3xl lg:text-5xl font-black uppercase tracking-tighter leading-none">
+                Update Your <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                  Masterpiece
+                </span>
+              </h2>
+              <p className="text-neutral/60 text-sm italic border-b border-dashed border-base-300 pb-4 inline-block mx-auto">
+                Refine and re-share your creative vision with the art community.
+              </p>
+            </div>
+
+            <form onSubmit={handleUpdateArtwork} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Left Column */}
+              <div className="space-y-5">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-primary ml-2">Artwork Image URL</label>
+                  <input
+                    type="text"
+                    name="imageUrl"
+                    defaultValue={art.imageUrl}
+                    placeholder="https://..."
+                    className={inputClass}
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-primary ml-2">Title of Artwork</label>
+                  <input
+                    type="text"
+                    name="title"
+                    defaultValue={art.title}
+                    placeholder="e.g. Floating Flora"
+                    className={inputClass}
+                    required
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-primary ml-2">Category</label>
+                    <select name="category" className={`${inputClass} appearance-none`} defaultValue={art.category}>
+                      <option value="Watercolor">Watercolor</option>
+                      <option value="Acrylic">Acrylic</option>
+                      <option value="Oil Painting">Oil Painting</option>
                     </select>
-                    <label>Medium/Tools</label>
-                    <input defaultValue={art.medium} type="text" placeholder="Medium / Tools" name="medium" className="input input-bordered w-full" required />
-                    <label>Description</label>
-                    <textarea defaultValue={art.description} placeholder="Description" name="description" className="input input-bordered w-full h-24" required />
-                    <label>Dimensions</label>
-                    <input defaultValue={art.dimensions} type="text" placeholder="Dimensions (optional)" name="dimensions" className="input input-bordered w-full" />
-                    <label>Price</label>
-                    <input defaultValue={art.price} type="text" placeholder="Price (optional)" name="price" className="input input-bordered w-full" />
-                    <label htmlFor="">Visibility</label>
-                    <select name="visibility" className="input input-bordered w-full">
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-primary ml-2">Medium</label>
+                    <input
+                      type="text"
+                      name="medium"
+                      defaultValue={art.medium}
+                      placeholder="Canvas, Brush"
+                      className={inputClass}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-primary ml-2">Dimensions</label>
+                    <input
+                      type="text"
+                      name="dimensions"
+                      defaultValue={art.dimensions}
+                      placeholder="24x36 in"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-primary ml-2">Price ($)</label>
+                    <input
+                      type="text"
+                      name="price"
+                      defaultValue={art.price}
+                      placeholder="450.00"
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column */}
+              <div className="space-y-5">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-primary ml-2">Artist Description</label>
+                  <textarea
+                    name="description"
+                    defaultValue={art.description}
+                    placeholder="Tell the story behind this piece..."
+                    className={`${inputClass} h-[132px] resize-none`}
+                    required
+                  />
+                </div>
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-primary ml-2">Artist Info (Read-Only)</label>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={user?.displayName || ""}
+                        className={`${inputClass} bg-base-200/50 cursor-not-allowed text-neutral/50`}
+                        readOnly
+                      />
+                      <select name="visibility" className={`${inputClass} w-1/3`} defaultValue={art.visibility.toString()}>
                         <option value="true">Public</option>
                         <option value="false">Private</option>
-                    </select>
+                      </select>
+                    </div>
+                  </div>
+                  <input
+                    type="email"
+                    value={user?.email || ""}
+                    className={`${inputClass} bg-base-200/50 cursor-not-allowed text-neutral/50`}
+                    readOnly
+                  />
+                </div>
 
-                    <button type="submit" className="btn btn-primary w-full">Update</button>
-                </form>
-            </div>
+                {/* Info Box */}
+                <div className="flex items-start gap-3 p-4 bg-secondary/5 rounded-xl border border-secondary/10">
+                  <HiOutlineInformationCircle className="text-secondary shrink-0" size={20} />
+                  <p className="text-[11px] text-neutral/60 leading-relaxed italic">
+                    Changes will be reflected immediately in the Explore Gallery if the artwork is set to Public.
+                  </p>
+                </div>
+              </div>
+
+              {/* Submit Button - Full Width */}
+              <div className="md:col-span-2 pt-4">
+                <button
+                  type="submit"
+                  className="group/btn relative w-full h-14 bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest rounded-xl shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-300 overflow-hidden"
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    Update Artwork <HiOutlineCloudArrowUp size={22} className="group-hover/btn:-translate-y-1 transition-transform duration-300" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-    );
+      </Fade>
+    </div>
+  );
 };
 
 export default Update;

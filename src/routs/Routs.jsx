@@ -15,6 +15,7 @@ import Error from "../components/Error.jsx";
 import Dashboard from "../layouts/Dashboard.jsx";
 import Overview from "../pages/Dashboard/Overview.jsx";
 import About from "../pages/About/About.jsx";
+import ContractUs from "../pages/Contract/ContractUs.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -73,10 +74,9 @@ export const router = createBrowserRouter([
           </PrivateRouts>
         ),
       },
-
       {
-        path: "/Update/:id",
-        element: <Update></Update>,
+        path: "/contract",
+        element: <ContractUs></ContractUs>,
       },
     ],
   },
@@ -89,10 +89,30 @@ export const router = createBrowserRouter([
         element: <Overview></Overview>,
       },
       {
-        path: "add-artwork",
+        path: "/dashboard/add-artworks",
         element: (
           <PrivateRouts>
             <AddArtWorks />
+          </PrivateRouts>
+        ),
+      },
+      {
+        path: "/dashboard/update/:id",
+        element: <Update></Update>,
+      },
+      {
+        path: "/dashboard/my-gallery",
+        element: (
+          <PrivateRouts>
+            <Gallery />
+          </PrivateRouts>
+        ),
+      },
+      {
+        path: "/dashboard/favorites",
+        element: (
+          <PrivateRouts>
+            <Favorites />
           </PrivateRouts>
         ),
       },

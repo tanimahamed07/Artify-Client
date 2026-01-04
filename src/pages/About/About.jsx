@@ -88,7 +88,7 @@ const About = () => {
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-20">
+      <section className="container mx-auto py-2">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image with Decorative Frame */}
           <Fade direction="left" triggerOnce>
@@ -145,7 +145,7 @@ const About = () => {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div className="space-y-2">
@@ -232,7 +232,7 @@ const About = () => {
             </Fade>
           </div>
         </div>
-        <section className="container mx-auto pt-30">
+        <section className="container mx-auto pt-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div className="space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
