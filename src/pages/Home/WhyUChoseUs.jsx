@@ -43,8 +43,9 @@ const WhyUChoseUs = () => {
 
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="space-y-3">
+
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -55,22 +56,23 @@ const WhyUChoseUs = () => {
               </p>
             </div>
 
-            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-none">
-              Why You <br />
+            {/* Main Title */}
+            <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter">
+              Why You{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
                 Choose Us
               </span>
             </h2>
           </div>
 
-          <p className="text-neutral/60 max-w-xs text-sm border-l-2 border-secondary pl-4 italic leading-relaxed">
+          <p className="text-neutral/60 max-w-xs text-sm border-l-2 border-secondary pl-4 italic">
             Artify is built to empower artists and collectors with a seamless,
             engaging, and secure creative experience.
           </p>
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 pt-10 lg:grid-cols-4 gap-8">
           {features.map((item, idx) => (
             <Fade key={item.id} direction="up" delay={idx * 150} triggerOnce>
               <div className="relative group">

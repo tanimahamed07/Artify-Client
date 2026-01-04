@@ -13,7 +13,8 @@ const UserReview = () => {
       name: "Sarah Mitchell",
       role: "Digital Artist",
       rating: 5,
-      review: "Artify has transformed how I showcase my work. The clean, modern interface lets my art speak for itself, and connecting with other artists has been incredibly inspiring!",
+      review:
+        "Artify has transformed how I showcase my work. The clean, modern interface lets my art speak for itself, and connecting with other artists has been incredibly inspiring!",
       avatar: "https://i.pravatar.cc/150?u=sarah",
     },
     {
@@ -21,7 +22,8 @@ const UserReview = () => {
       name: "James Chen",
       role: "Photographer",
       rating: 5,
-      review: "Finally, a platform that understands artists! Uploading and organizing my gallery was effortless, and the favorites feature helps me discover amazing new pieces every day.",
+      review:
+        "Finally, a platform that understands artists! Uploading and organizing my gallery was effortless, and the favorites feature helps me discover amazing new pieces every day.",
       avatar: "https://i.pravatar.cc/150?u=james",
     },
     {
@@ -29,7 +31,8 @@ const UserReview = () => {
       name: "Elena Rodriguez",
       role: "Illustrator",
       rating: 5,
-      review: "The community on Artify is so supportive. Getting likes and feedback on my artworks motivates me to create more. The UI is beautiful and intuitive – highly recommend!",
+      review:
+        "The community on Artify is so supportive. Getting likes and feedback on my artworks motivates me to create more. The UI is beautiful and intuitive – highly recommend!",
       avatar: "https://i.pravatar.cc/150?u=elena",
     },
     {
@@ -37,18 +40,17 @@ const UserReview = () => {
       name: "Marcus Okonkwo",
       role: "Sculptor",
       rating: 4,
-      review: "Artify makes sharing my sculptures easy with great detail views. The private/public visibility option is perfect for controlling what I share. A must-have for any artist.",
+      review:
+        "Artify makes sharing my sculptures easy with great detail views. The private/public visibility option is perfect for controlling what I share. A must-have for any artist.",
       avatar: "https://i.pravatar.cc/150?u=marcus",
     },
   ];
 
   return (
-    <section className="relative py-12 overflow-hidden bg-base-100">
-      <div className="container mx-auto px-4 relative z-10">
-        
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="space-y-3">
+    <section className="relative py-12 px-4 overflow-hidden bg-base-100">
+      <div className="container mx-auto relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -58,15 +60,19 @@ const UserReview = () => {
                 Artist Voices
               </p>
             </div>
-            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-none">
-              What Our <br />
+
+            {/* Main Title */}
+            <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter">
+              What Our{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
                 Artists Say
               </span>
             </h2>
           </div>
-          <p className="text-neutral/60 max-w-xs text-sm border-l-2 border-secondary pl-4 italic leading-relaxed">
-            Real feedback from creative minds who bring their art to life on Artify.
+
+          <p className="text-neutral/60 max-w-xs text-sm border-l-2 border-secondary pl-4 italic">
+            Real feedback from creative minds who bring their art to life on
+            Artify.
           </p>
         </div>
 
@@ -94,14 +100,15 @@ const UserReview = () => {
 
                 {/* Main Card */}
                 <div className="relative z-10 bg-base-100 border border-base-200 rounded-2xl p-8 shadow-sm group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1 h-full flex flex-col">
-                  
                   {/* Rating */}
                   <div className="flex items-center gap-1 mb-6">
                     {[...Array(5)].map((_, i) => (
-                      <FaStar 
-                        key={i} 
-                        size={14} 
-                        className={i < review.rating ? "text-secondary" : "text-base-300"}
+                      <FaStar
+                        key={i}
+                        size={14}
+                        className={
+                          i < review.rating ? "text-secondary" : "text-base-300"
+                        }
                       />
                     ))}
                   </div>
@@ -115,9 +122,9 @@ const UserReview = () => {
                   {/* Artist Info */}
                   <div className="flex items-center gap-4 pt-6 border-t border-dashed border-base-300">
                     <div className="w-12 h-12 rounded-xl overflow-hidden ring-2 ring-base-200 group-hover:ring-primary/20 transition-all duration-500">
-                      <img 
-                        src={review.avatar} 
-                        alt={review.name} 
+                      <img
+                        src={review.avatar}
+                        alt={review.name}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -139,7 +146,7 @@ const UserReview = () => {
 
       <style jsx global>{`
         .review-swiper .swiper-pagination-bullet-active {
-          background: #570df8 !important; 
+          background: #570df8 !important;
           width: 20px;
           border-radius: 10px;
           transition: all 0.3s;

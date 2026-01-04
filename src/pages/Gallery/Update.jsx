@@ -43,7 +43,7 @@ const Update = () => {
       .then((res) => {
         if (res.data.result.modifiedCount > 0 || res.data.result.matchedCount > 0) {
           toast.success("Artwork Updated Successfully!");
-          navigate("/dashboard/my-gallary");
+          navigate("/dashboard/my-gallery");
         } else {
           toast.error("No changes detected or update failed!");
         }

@@ -36,9 +36,7 @@ const Register = () => {
     const password = event.target.password.value;
 
     if (!validatePassword(password)) {
-      setPasswordError(
-        "Use 6+ characters with uppercase & lowercase letters."
-      );
+      setPasswordError("Use 6+ characters with uppercase & lowercase letters.");
       return;
     } else {
       setPasswordError("");
@@ -57,13 +55,10 @@ const Register = () => {
 
   return (
     <div className="min-h-[90vh] flex items-center justify-center bg-base-100 px-4 py-12">
-      {/* Subtle Grid Background */}
       <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:30px_30px]"></div>
 
       <Fade triggerOnce fraction={0.5}>
         <div className="w-full max-w-[480px]">
-          
-          {/* Branding & Header */}
           <div className="text-center mb-8">
             <h2 className="text-4xl font-black tracking-tight text-neutral mb-2">
               ARTIFY<span className="text-primary">.</span>
@@ -75,11 +70,11 @@ const Register = () => {
 
           <div className="bg-base-100 border border-base-300 rounded-[2rem] p-8 md:p-10 shadow-sm relative overflow-hidden">
             <form onSubmit={handleRegister} className="space-y-4">
-              
-              {/* Full Name */}
               <div className="form-control">
                 <label className="label py-1">
-                  <span className="label-text font-bold text-[10px] uppercase opacity-60 tracking-wider">Full Name</span>
+                  <span className="label-text font-bold text-[10px] uppercase opacity-60 tracking-wider">
+                    Full Name
+                  </span>
                 </label>
                 <input
                   type="text"
@@ -90,10 +85,11 @@ const Register = () => {
                 />
               </div>
 
-              {/* Email Address */}
               <div className="form-control">
                 <label className="label py-1">
-                  <span className="label-text font-bold text-[10px] uppercase opacity-60 tracking-wider">Email Address</span>
+                  <span className="label-text font-bold text-[10px] uppercase opacity-60 tracking-wider">
+                    Email Address
+                  </span>
                 </label>
                 <input
                   type="email"
@@ -104,10 +100,11 @@ const Register = () => {
                 />
               </div>
 
-              {/* Photo URL */}
               <div className="form-control">
                 <label className="label py-1">
-                  <span className="label-text font-bold text-[10px] uppercase opacity-60 tracking-wider">Photo URL</span>
+                  <span className="label-text font-bold text-[10px] uppercase opacity-60 tracking-wider">
+                    Photo URL
+                  </span>
                 </label>
                 <input
                   type="text"
@@ -117,17 +114,20 @@ const Register = () => {
                 />
               </div>
 
-              {/* Password Field */}
               <div className="form-control">
                 <label className="label py-1">
-                  <span className="label-text font-bold text-[10px] uppercase opacity-60 tracking-wider">Password</span>
+                  <span className="label-text font-bold text-[10px] uppercase opacity-60 tracking-wider">
+                    Password
+                  </span>
                 </label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder="Min. 6 chars (Aa-Zz)"
-                    className={`input input-bordered bg-base-200/30 border-base-300 focus:border-primary focus:outline-none rounded-xl w-full text-sm ${passwordError ? 'border-error' : ''}`}
+                    className={`input input-bordered bg-base-200/30 border-base-300 focus:border-primary focus:outline-none rounded-xl w-full text-sm ${
+                      passwordError ? "border-error" : ""
+                    }`}
                     required
                   />
                   <button
@@ -135,17 +135,22 @@ const Register = () => {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral/30 hover:text-primary transition-colors"
                   >
-                    {showPassword ? <FaRegEyeSlash size={16} /> : <FaRegEye size={16} />}
+                    {showPassword ? (
+                      <FaRegEyeSlash size={16} />
+                    ) : (
+                      <FaRegEye size={16} />
+                    )}
                   </button>
                 </div>
                 {passwordError && (
-                  <p className="text-[10px] text-error mt-1.5 font-bold ml-1">{passwordError}</p>
+                  <p className="text-[10px] text-error mt-1.5 font-bold ml-1">
+                    {passwordError}
+                  </p>
                 )}
               </div>
 
-              {/* Submit Button */}
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="btn btn-primary w-full rounded-xl text-white font-bold tracking-wide shadow-lg shadow-primary/10 border-none mt-4 transition-all hover:scale-[1.01]"
               >
                 Create Account <FaUserPlus className="ml-2 text-xs" />
@@ -154,11 +159,12 @@ const Register = () => {
 
             <div className="relative flex py-6 items-center">
               <div className="flex-grow border-t border-base-300"></div>
-              <span className="flex-shrink mx-4 text-[10px] font-bold text-neutral/30 uppercase tracking-[0.2em]">Quick Sign Up</span>
+              <span className="flex-shrink mx-4 text-[10px] font-bold text-neutral/30 uppercase tracking-[0.2em]">
+                Quick Sign Up
+              </span>
               <div className="flex-grow border-t border-base-300"></div>
             </div>
 
-            {/* Google Signup */}
             <button
               onClick={handleGoogleSignIn}
               className="btn btn-outline border-base-300 hover:bg-neutral hover:text-white w-full rounded-xl flex items-center justify-center gap-3 font-bold transition-all h-12"
@@ -167,10 +173,12 @@ const Register = () => {
             </button>
           </div>
 
-          {/* Login Redirection */}
           <p className="mt-8 text-center text-sm font-medium text-neutral/50">
             Already a member?{" "}
-            <Link to="/login" className="text-primary font-bold hover:underline transition-all">
+            <Link
+              to="/login"
+              className="text-primary font-bold hover:underline transition-all"
+            >
               Sign In
             </Link>
           </p>

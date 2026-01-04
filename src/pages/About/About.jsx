@@ -48,7 +48,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-base-100 pb-20 overflow-hidden">
+    <div className="min-h-screen bg-base-100 pb-16 overflow-hidden">
       <section className="relative py-12 lg:py-20 border-b border-base-200">
         <div className="absolute top-0 -left-20 w-48 h-48 bg-primary/10 rounded-full blur-3xl opacity-50"></div>
         <div className="absolute bottom-0 -right-20 w-64 h-64 bg-secondary/10 rounded-full blur-3xl opacity-50"></div>
@@ -90,7 +90,7 @@ const About = () => {
 
       <section className="container mx-auto py-2">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image with Decorative Frame */}
+
           <Fade direction="left" triggerOnce>
             <div className="relative group max-w-md mx-auto lg:mx-0">
               <div className="absolute -inset-2 border border-primary/20 rounded-2xl rotate-3 group-hover:rotate-0 transition-transform duration-500"></div>
@@ -159,7 +159,7 @@ const About = () => {
                 </p>
               </div>
 
-              {/* Main Title */}
+
               <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter">
                 Why Artify{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
@@ -193,7 +193,7 @@ const About = () => {
               </div>
             </Fade>
 
-            {/* Feature 2 */}
+
             <Fade direction="up" delay={300} triggerOnce>
               <div className="relative group">
                 <div className="absolute -inset-1.5 border border-primary/20 rounded-2xl rotate-1 group-hover:rotate-0 transition-transform duration-500"></div>
@@ -245,7 +245,7 @@ const About = () => {
                 </p>
               </div>
 
-              {/* Main Title */}
+
               <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter">
                 The Minds{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">

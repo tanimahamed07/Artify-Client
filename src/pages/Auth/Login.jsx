@@ -51,13 +51,13 @@ const Login = () => {
 
   return (
     <div className="min-h-[90vh] flex items-center justify-center bg-base-100 px-4">
-      {/* Khub halka background element, jate chokhe na lage */}
+
       <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]"></div>
 
       <Fade triggerOnce fraction={0.5}>
         <div className="w-full max-w-[440px] py-10">
           
-          {/* Header Section */}
+
           <div className="text-center mb-10">
             <h2 className="text-4xl font-black tracking-tight text-neutral mb-2">
               ARTIFY<span className="text-primary">.</span>
@@ -70,7 +70,7 @@ const Login = () => {
           <div className="bg-base-100 border border-base-300 rounded-3xl p-8 md:p-10 shadow-sm">
             <form className="space-y-5" onSubmit={handleLogIn}>
               
-              {/* Email Field */}
+
               <div className="form-control">
                 <label className="label py-1">
                   <span className="label-text font-bold text-xs uppercase opacity-60">Email Address</span>
@@ -85,7 +85,7 @@ const Login = () => {
                 />
               </div>
 
-              {/* Password Field */}
+
               <div className="form-control">
                 <div className="flex justify-between items-center py-1">
                   <label className="label-text font-bold text-xs uppercase opacity-60">Password</label>
@@ -110,7 +110,7 @@ const Login = () => {
                 </div>
               </div>
 
-              {/* Sign In Button */}
+
               <button 
                 type="submit" 
                 className="btn btn-primary w-full rounded-xl text-white font-bold tracking-wide shadow-lg shadow-primary/10 border-none mt-2"
@@ -119,7 +119,7 @@ const Login = () => {
               </button>
             </form>
 
-            {/* Google Sign In */}
+
             <div className="relative flex py-6 items-center">
               <div className="flex-grow border-t border-base-300"></div>
               <span className="flex-shrink mx-4 text-[10px] font-bold text-neutral/30 uppercase tracking-[0.2em]">Social Login</span>
@@ -133,7 +133,7 @@ const Login = () => {
               <FcGoogle size={20} /> Continue with Google
             </button>
 
-            {/* Demo Credential Button - Simplified */}
+
             <button 
               onClick={handleDemoLogin}
               className="w-full mt-4 py-2 text-[11px] font-bold text-neutral/40 hover:text-primary border border-dashed border-base-300 rounded-xl transition-all uppercase tracking-widest"
@@ -142,7 +142,7 @@ const Login = () => {
             </button>
           </div>
 
-          {/* Bottom Link */}
+
           <p className="mt-8 text-center text-sm font-medium text-neutral/50">
             New here?{" "}
             <Link to="/register" className="text-primary font-bold hover:underline transition-all">

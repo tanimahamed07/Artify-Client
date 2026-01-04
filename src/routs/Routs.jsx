@@ -46,30 +46,7 @@ export const router = createBrowserRouter([
         path: "/art-details/:id",
         element: <ArtworkDetails></ArtworkDetails>,
       },
-      {
-        path: "/add-artworks",
-        element: (
-          <PrivateRouts>
-            <AddArtWorks></AddArtWorks>
-          </PrivateRouts>
-        ),
-      },
-      {
-        path: "/favorites",
-        element: (
-          <PrivateRouts>
-            <Favorites></Favorites>
-          </PrivateRouts>
-        ),
-      },
-      {
-        path: "/my-gallary",
-        element: (
-          <PrivateRouts>
-            <Gallery></Gallery>
-          </PrivateRouts>
-        ),
-      },
+
       {
         path: "/contract",
         element: <ContractUs></ContractUs>,

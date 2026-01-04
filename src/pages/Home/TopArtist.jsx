@@ -28,25 +28,29 @@ const TopArtist = () => {
     <section className="relative py-20 overflow-hidden bg-base-100">
       <div className="container mx-auto px-4">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-secondary/10 rounded-full border border-secondary/20">
+
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
               </span>
-              <p className="text-secondary font-bold tracking-widest uppercase text-[10px]">
+              <p className="text-primary font-bold tracking-widest uppercase text-[10px]">
                 Rising Stars
               </p>
             </div>
-            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-none">
-              Top Artists <br />
+
+            {/* Main Title */}
+            <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter">
+              Top Artists{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
                 Of The Week
               </span>
             </h2>
           </div>
-          <p className="text-neutral/60 max-w-xs text-sm border-l-2 border-primary pl-4 italic leading-relaxed">
+
+          <p className="text-neutral/60 max-w-xs text-sm border-l-2 border-secondary pl-4 italic">
             Meet the creative minds shaping the future of digital and
             traditional Latin American art.
           </p>

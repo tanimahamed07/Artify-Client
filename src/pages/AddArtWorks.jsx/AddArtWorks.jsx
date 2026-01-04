@@ -33,7 +33,7 @@ const AddArtWorks = () => {
     axiosSecure.post("/add-artworks", artwork).then((res) => {
       if (res.data.result.insertedId) {
         toast.success("Artwork Added Successfully!");
-        navigate("/dashboard/my-gallary");
+        navigate("/dashboard/my-gallery");
       } else {
         toast.error("Failed to Add Artwork!");
       }
@@ -48,11 +48,11 @@ const AddArtWorks = () => {
     <div className="max-w-4xl mx-auto py-4">
       <Fade direction="up" triggerOnce>
         <div className="relative group">
-          {/* Decorative Frame (Matches Community Highlights style) */}
+
           <div className="absolute -inset-2 border border-primary/20 rounded-[2.5rem] rotate-1 group-hover:rotate-0 transition-transform duration-500 pointer-events-none"></div>
 
           <div className="relative z-10 bg-base-100 border border-base-200 rounded-[2rem] shadow-2xl p-8 lg:p-12">
-            {/* Header Section */}
+
             <div className="text-center mb-10 space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20 mb-2">
                 <HiOutlineCloudArrowUp className="text-primary" size={18} />
@@ -111,7 +111,7 @@ const AddArtWorks = () => {
                 </div>
               </div>
 
-              {/* Right Column */}
+
               <div className="space-y-5">
                 <div className="space-y-1">
                   <label className="text-[10px] font-black uppercase tracking-widest text-primary ml-2">Artist Description</label>
@@ -132,7 +132,7 @@ const AddArtWorks = () => {
                   <input type="email" value={user?.email || ""} className={`${inputClass} bg-base-200/50 cursor-not-allowed text-neutral/50`} readOnly />
                 </div>
 
-                {/* Info Box */}
+
                 <div className="flex items-start gap-3 p-4 bg-secondary/5 rounded-xl border border-secondary/10">
                    <HiOutlineInformationCircle className="text-secondary shrink-0" size={20} />
                    <p className="text-[11px] text-neutral/60 leading-relaxed italic">
@@ -141,7 +141,6 @@ const AddArtWorks = () => {
                 </div>
               </div>
 
-              {/* Submit Button - Full Width */}
               <div className="md:col-span-2 pt-4">
                 <button
                   type="submit"

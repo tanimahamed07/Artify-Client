@@ -1,87 +1,69 @@
 import React from "react";
-import { FaFacebookF, FaXTwitter } from "react-icons/fa6";
+import { Link } from "react-router";
+import { FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import logo from "../assets/ChatGPT Image Nov 10, 2025, 11_00_39 PM.png";
 
 const Footer = () => {
-  return (
-    <footer className="relative bg-base-200 text-neutral pt-20 overflow-hidden">
-      {/* Decorative Glow */}
-      <div className="absolute -top-24 -left-24 w-72 h-72 bg-primary/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 -right-24 w-72 h-72 bg-secondary/10 rounded-full blur-3xl"></div>
+  const currentYear = new Date().getFullYear();
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Top Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pb-16 border-b border-base-300">
-          {/* Brand */}
+  return (
+    <footer className="bg-base-200 border-t border-base-300 pt-12 pb-6">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+
+          {/* 1. Brand Section */}
           <div className="space-y-4">
-            <img src={logo} alt="Artify Logo" className="w-24" />
-            <h2 className="text-2xl font-black uppercase tracking-tighter">
-              Artify
-            </h2>
-            <p className="text-sm text-neutral/60 leading-relaxed max-w-sm">
-              A creative platform for artists to showcase their artworks, connect
-              with the community, and explore inspiring creations.
+            <Link to="/" className="flex items-center gap-2 group">
+              <div className="bg-primary/10 p-2 rounded-xl group-hover:bg-primary/20 transition-colors">
+                <img className="w-10" src={logo} alt="Artify Logo" />
+              </div>
+              <span className="text-2xl font-black tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent uppercase">
+                ARTIFY
+              </span>
+            </Link>
+            <p className="text-base-content/70 leading-relaxed max-w-sm">
+              Discover and share stunning artworks from artists worldwide. Explore the finest collections in our creative community.
             </p>
           </div>
 
-          {/* Links */}
+          {/* 2. Quick Navigation */}
           <div>
-            <h3 className="text-lg font-black uppercase tracking-widest mb-6">
-              Quick Links
-            </h3>
-            <ul className="space-y-3 text-sm">
-              {[
-                { name: "Home", path: "/" },
-                { name: "Explore Artworks", path: "/explore" },
-                { name: "Add Artwork", path: "/add-artwork" },
-                { name: "My Gallery", path: "/my-gallery" },
-                { name: "My Favorites", path: "/favorites" },
-              ].map((link, idx) => (
-                <li key={idx}>
-                  <a
-                    href={link.path}
-                    className="group inline-flex items-center gap-2 text-neutral/60 hover:text-primary transition-colors"
-                  >
-                    <span className="h-1 w-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition"></span>
-                    {link.name}
-                  </a>
-                </li>
-              ))}
+            <h3 className="text-lg font-bold mb-4 text-base-content border-l-4 border-primary pl-3">Navigation</h3>
+            <ul className="flex flex-col gap-3">
+              <li><Link to="/" className="text-base-content/70 hover:text-primary transition-colors font-medium">Home</Link></li>
+              <li><Link to="/all-artworks" className="text-base-content/70 hover:text-primary transition-colors font-medium">Explore Artworks</Link></li>
+              <li><Link to="/about" className="text-base-content/70 hover:text-primary transition-colors font-medium">About</Link></li>
+              <li><Link to="/contract" className="text-base-content/70 hover:text-primary transition-colors font-medium">Contact Us</Link></li>
+              <li><Link to="/dashboard" className="text-base-content/70 hover:text-primary transition-colors font-medium">Dashboard</Link></li>
             </ul>
           </div>
 
-          {/* Contact & Social */}
+          {/* 3. Contact Info */}
           <div>
-            <h3 className="text-lg font-black uppercase tracking-widest mb-6">
-              Contact & Social
-            </h3>
-            <p className="text-sm text-neutral/60 mb-6">
-              Email:{" "}
-              <span className="text-neutral font-medium">
-                support@artify.com
-              </span>
-            </p>
-
-            <div className="flex items-center gap-4">
-              <a
-                href="#"
-                className="w-11 h-11 flex items-center justify-center rounded-xl bg-base-100 border border-base-300 hover:bg-primary hover:text-white transition-all"
-              >
-                <FaFacebookF />
-              </a>
-              <a
-                href="#"
-                className="w-11 h-11 flex items-center justify-center rounded-xl bg-base-100 border border-base-300 hover:bg-secondary hover:text-white transition-all"
-              >
-                <FaXTwitter />
-              </a>
+            <h3 className="text-lg font-bold mb-4 text-base-content border-l-4 border-secondary pl-3">Contact</h3>
+            <div className="flex flex-col gap-3 text-sm text-base-content/70">
+              <div className="flex items-center gap-3">
+                <FaEnvelope className="text-secondary" />
+                <span>support@artify.com</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <FaMapMarkerAlt className="text-secondary" />
+                <span>Creative Studio, Paris, France</span>
+              </div>
             </div>
           </div>
+
         </div>
 
-        {/* Bottom */}
-        <div className="py-6 text-center text-xs text-neutral/50 tracking-widest uppercase">
-          © {new Date().getFullYear()} Artify. All rights reserved.
+        {/* Bottom Bar */}
+        <div className="pt-6 border-t border-base-300 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold uppercase tracking-widest text-base-content/40">
+          <p>© {currentYear} ARTIFY — THE GLOBAL CREATIVE DIRECTORY</p>
+          <div className="flex items-center gap-6">
+            <span className="flex items-center gap-1.5 ml-4">
+              <span className="w-2 h-2 rounded-full bg-success"></span>
+              System Active
+            </span>
+          </div>
         </div>
       </div>
     </footer>

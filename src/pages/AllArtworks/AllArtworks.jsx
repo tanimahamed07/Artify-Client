@@ -70,7 +70,7 @@ const AllArtworks = () => {
   return (
     <div className="container mx-auto px-4 py-12 space-y-10">
       
-      {/* 1. Header Area */}
+
       <div className="text-center space-y-3">
         <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
           <span>{text}</span>
@@ -81,10 +81,10 @@ const AllArtworks = () => {
         </p>
       </div>
 
-      {/* 2. Controls */}
+
       <div className="bg-base-100 border border-base-200 rounded-[2.5rem] p-6 lg:p-8 shadow-sm space-y-6">
         <div className="flex flex-col xl:flex-row gap-6 items-center">
-          {/* Search Box */}
+
           <form onSubmit={handleSearchSubmit} className="relative w-full xl:w-2/5">
             <HiOutlineMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" size={20} />
             <input
@@ -96,7 +96,7 @@ const AllArtworks = () => {
             />
           </form>
 
-          {/* Category Filter */}
+
           <div className="flex flex-wrap justify-center gap-2">
             <button 
               onClick={() => {setCategory(""); setCurrentPage(1);}}
@@ -115,7 +115,7 @@ const AllArtworks = () => {
             ))}
           </div>
 
-          {/* Sort Selection */}
+
           <div className="flex items-center gap-3 ml-auto">
             <span className="text-[10px] font-black uppercase text-neutral/40 tracking-widest whitespace-nowrap">Sort By:</span>
             <select 

@@ -82,8 +82,6 @@ const Navbar = () => {
               {user && (
                 <>
                   <div className="divider my-0"></div>
-                  <li><NavLink onClick={closeDropdown} to="/add-artworks">Add Artworks</NavLink></li>
-                  <li><NavLink onClick={closeDropdown} to="/my-gallary">My Gallery</NavLink></li>
                   <li><NavLink onClick={closeDropdown} to="/dashboard">Dashboard</NavLink></li>
                 </>
               )}
@@ -163,7 +161,6 @@ const Navbar = () => {
                   <p className="font-bold truncate text-base-content">{user.displayName || "Artist"}</p>
                 </div>
                 <li><Link onClick={closeDropdown} to="/dashboard">Dashboard</Link></li>
-                <li><Link onClick={closeDropdown} to="/profile">Profile</Link></li>
                 <div className="divider my-1"></div>
                 <li>
                   <button

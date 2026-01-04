@@ -1,10 +1,11 @@
 import React from "react";
 import { Fade } from "react-awesome-reveal";
 import { HiArrowRight, HiPlus } from "react-icons/hi2";
+import { Link } from "react-router";
 
 const Call2Actions = () => {
   return (
-    <section className="relative py-24 overflow-hidden bg-base-100">
+    <section className="relative py-16 overflow-hidden bg-base-100">
       {/* Decorative Glow */}
       <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/15 rounded-full blur-3xl -z-10"></div>
       <div className="absolute bottom-0 -right-24 w-64 h-64 bg-secondary/15 rounded-full blur-3xl -z-10"></div>
@@ -46,16 +47,16 @@ const Call2Actions = () => {
               {/* Actions */}
               <div className="flex flex-wrap justify-center gap-4">
                 {/* Primary CTA */}
-                <button className="group flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs shadow-lg hover:scale-105 transition-transform">
+                <Link to='/dashboard/add-artworks' className="group flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs shadow-lg hover:scale-105 transition-transform">
                   <HiPlus className="text-lg" />
                   Add Artwork
-                </button>
+                </Link>
 
                 {/* Secondary CTA */}
-                <button className="group flex items-center gap-2 bg-base-200 hover:bg-secondary hover:text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all">
+                <Link to='/dashboard/my-gallery' className="group flex items-center gap-2 bg-base-200 hover:bg-secondary hover:text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all">
                   Explore Gallery
                   <HiArrowRight className="text-lg group-hover:translate-x-1 transition-transform" />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
