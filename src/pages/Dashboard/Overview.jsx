@@ -6,7 +6,8 @@ import {
   HiOutlineChartBar, 
   HiOutlineHeart, 
   HiOutlinePhoto, 
-  HiOutlineStar 
+  HiOutlineStar,
+  HiOutlineInbox // নতুন আইকন খালি অবস্থার জন্য
 } from "react-icons/hi2";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
@@ -17,26 +18,23 @@ const Overview = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
-  // State management
   const [stats, setStats] = useState({});
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Load data from API
   useEffect(() => {
     if (!user?.email) return;
 
     const fetchData = async () => {
       try {
         setLoading(true);
-        // Getting both overview stats and gallery items at once
         const [overviewRes, galleryRes] = await Promise.all([
           axiosSecure.get(`/dashboard-overview?email=${user.email}`),
           axiosSecure.get(`/my-gallery?email=${user.email}`),
         ]);
 
-        setStats(overviewRes.data.data);
-        setArtworks(galleryRes.data.result);
+        setStats(overviewRes.data.data || {});
+        setArtworks(galleryRes.data.result || []);
       } catch (error) {
         console.error("Error loading dashboard:", error);
       } finally {
@@ -47,7 +45,6 @@ const Overview = () => {
     fetchData();
   }, [user, axiosSecure]);
 
-  // Loading state
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
@@ -56,7 +53,10 @@ const Overview = () => {
     );
   }
 
-  // Formatting data for the Pie Chart
+  // ডাটা না থাকলে চেক করার কন্ডিশন
+  const hasArtworks = artworks.length > 0;
+  const hasStats = stats.totalLikes > 0 || stats.favorites > 0;
+
   const pieData = [
     { name: "Likes", value: stats.totalLikes || 0 },
     { name: "Favorites", value: stats.favorites || 0 },
@@ -64,7 +64,7 @@ const Overview = () => {
   const PIE_COLORS = ["#6366f1", "#f59e0b"]; 
 
   return (
-    <div className="space-y-10 py-4 max-w-7xl mx-auto">
+    <div className="space-y-10 py-4 max-w-7xl mx-auto px-4">
       
       {/* 1. PAGE HEADER */}
       <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-base-200 pb-8">
@@ -86,60 +86,45 @@ const Overview = () => {
 
       {/* 2. STATS CARDS SECTION */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <StatCard 
-          label="Total Artworks" 
-          value={stats.totalArtworks} 
-          icon={<HiOutlinePhoto size={24}/>} 
-          theme="indigo" 
-        />
-        <StatCard 
-          label="Total Likes" 
-          value={stats.totalLikes} 
-          icon={<HiOutlineHeart size={24}/>} 
-          theme="amber" 
-        />
-        <StatCard 
-          label="Favorites" 
-          value={stats.favorites} 
-          icon={<HiOutlineStar size={24}/>} 
-          theme="indigo" 
-        />
+        <StatCard label="Total Artworks" value={stats.totalArtworks} icon={<HiOutlinePhoto size={24}/>} theme="indigo" />
+        <StatCard label="Total Likes" value={stats.totalLikes} icon={<HiOutlineHeart size={24}/>} theme="amber" />
+        <StatCard label="Favorites" value={stats.favorites} icon={<HiOutlineStar size={24}/>} theme="indigo" />
       </section>
 
       {/* 3. CHARTS SECTION */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Bar Chart Box */}
         <ChartContainer title="Engagement per Artwork" subtitle="Likes distribution">
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={artworks}>
-              <XAxis dataKey="title" hide />
-              <YAxis axisLine={false} tickLine={false} tick={{fontSize: 10}} />
-              <Tooltip 
-                contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px rgba(0,0,0,0.1)' }} 
-              />
-              <Bar dataKey="likes" fill="#6366f1" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          {hasArtworks ? (
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={artworks}>
+                <XAxis dataKey="title" hide />
+                <YAxis axisLine={false} tickLine={false} tick={{fontSize: 10}} />
+                <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px rgba(0,0,0,0.1)' }} />
+                <Bar dataKey="likes" fill="#6366f1" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <EmptyState message="No engagement data to track yet" />
+          )}
         </ChartContainer>
 
         {/* Pie Chart Box */}
         <ChartContainer title="Interaction Mix" subtitle="Likes vs Favorites">
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie 
-                data={pieData} 
-                innerRadius={60} 
-                outerRadius={100} 
-                paddingAngle={5} 
-                dataKey="value"
-              >
-                {pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={PIE_COLORS[index]} stroke="none" />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
+          {hasStats ? (
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie data={pieData} innerRadius={60} outerRadius={100} paddingAngle={5} dataKey="value">
+                  {pieData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={PIE_COLORS[index]} stroke="none" />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          ) : (
+            <EmptyState message="Start sharing to see interactions" />
+          )}
         </ChartContainer>
       </section>
 
@@ -151,47 +136,39 @@ const Overview = () => {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="table w-full">
-            <thead>
-              <tr className="text-primary uppercase text-[10px] tracking-widest border-base-200">
-                <th className="pl-8">Artwork</th>
-                <th>Category</th>
-                <th>Likes</th>
-                <th>Date Added</th>
-              </tr>
-            </thead>
-            <tbody>
-              {artworks.map((art) => (
-                <tr key={art._id} className="hover:bg-base-200/50 border-base-100 transition-colors">
-                  <td className="pl-8 py-4">
-                    <div className="flex items-center gap-3">
-                      <img 
-                        src={art.imageUrl} 
-                        className="w-10 h-10 rounded-lg object-cover border border-base-300" 
-                        alt={art.title} 
-                      />
-                      <span className="font-bold text-neutral">{art.title}</span>
-                    </div>
-                  </td>
-                  <td>
-                    <span className="bg-base-200 text-[10px] font-bold px-2 py-1 rounded">
-                      {art.category}
-                    </span>
-                  </td>
-                  <td className="font-bold text-primary">
-                    <div className="flex items-center gap-1">
-                      <HiOutlineHeart /> {art.likes || 0}
-                    </div>
-                  </td>
-                  <td className="text-neutral/50 text-xs">
-                    {new Date(art.createdAt).toLocaleDateString()}
-                  </td>
+          {hasArtworks ? (
+            <table className="table w-full">
+              <thead>
+                <tr className="text-primary uppercase text-[10px] tracking-widest border-base-200">
+                  <th className="pl-8">Artwork</th>
+                  <th>Category</th>
+                  <th>Likes</th>
+                  <th>Date Added</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          {artworks.length === 0 && (
-            <div className="p-20 text-center text-neutral/30 italic">No artworks to display.</div>
+              </thead>
+              <tbody>
+                {artworks.map((art) => (
+                  <tr key={art._id} className="hover:bg-base-200/50 border-base-100 transition-colors">
+                    <td className="pl-8 py-4">
+                      <div className="flex items-center gap-3">
+                        <img src={art.imageUrl} className="w-10 h-10 rounded-lg object-cover border border-base-300" alt={art.title} />
+                        <span className="font-bold text-neutral">{art.title}</span>
+                      </div>
+                    </td>
+                    <td><span className="bg-base-200 text-[10px] font-bold px-2 py-1 rounded">{art.category}</span></td>
+                    <td className="font-bold text-primary">
+                      <div className="flex items-center gap-1"><HiOutlineHeart /> {art.likes || 0}</div>
+                    </td>
+                    <td className="text-neutral/50 text-xs">{new Date(art.createdAt).toLocaleDateString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="py-20 flex flex-col items-center justify-center text-neutral/30 italic">
+               <HiOutlineInbox size={48} className="mb-2 opacity-20" />
+               <p>Your gallery is currently empty.</p>
+            </div>
           )}
         </div>
       </section>
@@ -199,14 +176,13 @@ const Overview = () => {
   );
 };
 
-
+// --- Helper Components ---
 
 const StatCard = ({ label, value, icon, theme }) => {
   const isIndigo = theme === "indigo";
   return (
     <div className="relative group">
       <div className={`absolute -inset-1 bg-gradient-to-r ${isIndigo ? 'from-primary/20' : 'from-secondary/20'} to-transparent rounded-[1.5rem] blur opacity-25 group-hover:opacity-75 transition duration-500`}></div>
-      
       <div className="relative bg-base-100 border border-base-200 p-6 rounded-[1.5rem] shadow-sm flex items-center justify-between">
         <div>
           <p className="text-[10px] font-black uppercase tracking-widest text-neutral/40 mb-1">{label}</p>
@@ -221,12 +197,24 @@ const StatCard = ({ label, value, icon, theme }) => {
 };
 
 const ChartContainer = ({ title, subtitle, children }) => (
-  <div className="bg-base-100 border border-base-200 rounded-[2rem] p-8 shadow-lg">
+  <div className="bg-base-100 border border-base-200 rounded-[2rem] p-8 shadow-lg min-h-[400px] flex flex-col">
     <div className="mb-6">
       <h3 className="text-xs font-black uppercase tracking-[0.2em] text-primary">{title}</h3>
       <p className="text-[10px] text-neutral/40 uppercase font-bold">{subtitle}</p>
     </div>
-    {children}
+    <div className="flex-grow flex items-center justify-center">
+        {children}
+    </div>
+  </div>
+);
+
+// Empty State Component for Charts
+const EmptyState = ({ message }) => (
+  <div className="flex flex-col items-center justify-center text-center space-y-3 opacity-40">
+    <div className="w-16 h-16 rounded-full bg-base-200 flex items-center justify-center">
+      <HiOutlineChartBar size={24} />
+    </div>
+    <p className="text-sm font-medium italic">{message}</p>
   </div>
 );
 

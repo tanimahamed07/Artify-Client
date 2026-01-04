@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-import GalleryCard from './GalleryCard';
-import Swal from 'sweetalert2';
-import useAxiosSecure from '../../hook/useAxiosSecure';
-import Loader from '../../components/Loader';
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import GalleryCard from "./GalleryCard";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../hook/useAxiosSecure";
+import Loader from "../../components/Loader";
 import { Fade } from "react-awesome-reveal";
 import { HiOutlinePhoto, HiOutlineSparkles, HiPlus } from "react-icons/hi2";
 import { Link } from "react-router";
@@ -16,12 +16,13 @@ const Gallery = () => {
 
   useEffect(() => {
     setLoading(true);
-    axiosSecure.get(`/my-gallery?email=${user.email}`)
-      .then(res => {
+    axiosSecure
+      .get(`/my-gallery?email=${user.email}`)
+      .then((res) => {
         setArts(res.data?.result || []);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         setLoading(false);
       });
@@ -36,25 +37,29 @@ const Gallery = () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, delete it!",
-      background: '#fff',
+      background: "#fff",
       customClass: {
-        title: 'font-black uppercase tracking-tighter',
-        confirmButton: 'rounded-xl font-bold uppercase tracking-widest text-xs',
-        cancelButton: 'rounded-xl font-bold uppercase tracking-widest text-xs'
-      }
+        title: "font-black uppercase tracking-tighter",
+        confirmButton: "rounded-xl font-bold uppercase tracking-widest text-xs",
+        cancelButton: "rounded-xl font-bold uppercase tracking-widest text-xs",
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/delete-artwork?id=${id}`)
-          .then(res => {
-            setArts(prevArts => prevArts.filter(art => art._id !== id));
-            Swal.fire("Deleted!", "Artwork has been removed.", "success");
-          });
+        axiosSecure.delete(`/delete-artwork?id=${id}`).then((res) => {
+          setArts((prevArts) => prevArts.filter((art) => art._id !== id));
+          Swal.fire("Deleted!", "Artwork has been removed.", "success");
+        });
       }
     });
   };
 
-  if (loading) return <Loader />;
-
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+    );
+  }
   return (
     <section className="relative space-y-10">
       {/* Background Glow */}
@@ -65,18 +70,27 @@ const Gallery = () => {
         <div className="space-y-3">
           <Fade direction="down" triggerOnce>
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
-              <HiOutlinePhoto className="text-primary animate-pulse" size={16} />
+              <HiOutlinePhoto
+                className="text-primary animate-pulse"
+                size={16}
+              />
               <p className="text-primary font-bold tracking-widest uppercase text-[10px]">
                 Artist Portfolio
               </p>
             </div>
           </Fade>
           <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-none">
-            My <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Gallery</span>
+            My{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+              Gallery
+            </span>
           </h2>
         </div>
-        
-        <Link to="/dashboard/add-artworks" className="btn btn-primary rounded-2xl gap-2 shadow-lg shadow-primary/20">
+
+        <Link
+          to="/dashboard/add-artworks"
+          className="btn btn-primary rounded-2xl gap-2 shadow-lg shadow-primary/20"
+        >
           <HiPlus size={20} />
           Add New Art
         </Link>
@@ -90,12 +104,17 @@ const Gallery = () => {
               <HiOutlinePhoto size={40} />
             </div>
             <div className="space-y-2">
-              <h3 className="text-xl font-black uppercase tracking-tight">Gallery is empty</h3>
+              <h3 className="text-xl font-black uppercase tracking-tight">
+                Gallery is empty
+              </h3>
               <p className="text-neutral/50 text-sm max-w-xs mx-auto">
                 Start your journey by adding your first masterpiece.
               </p>
             </div>
-            <Link to="/dashboard/add-artwork" className="btn btn-primary btn-md rounded-xl px-8 shadow-lg">
+            <Link
+              to="/dashboard/add-artwork"
+              className="btn btn-primary btn-md rounded-xl px-8 shadow-lg"
+            >
               Upload Artwork
             </Link>
           </div>

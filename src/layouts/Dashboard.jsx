@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react"; // useState যোগ করা হয়েছে
 import { NavLink, Outlet, Link, useNavigate } from "react-router";
 import logo from "../assets/ChatGPT Image Nov 10, 2025, 11_00_39 PM.png";
 import { AuthContext } from "../context/AuthContext";
@@ -10,13 +10,17 @@ import {
   HiHeart,
   HiBars3BottomLeft,
   HiOutlineArrowLeftOnRectangle,
+  HiXMark, // ক্লোজ বাটনের জন্য
 } from "react-icons/hi2";
 import toast from "react-hot-toast";
 
 const Dashboard = () => {
-  const { user, signOutUser } = useContext(AuthContext); 
+  const { user, signOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const theme = localStorage.getItem("theme") || "light";
+  
+  // মোবাইল মেনুর জন্য State
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const html = document.querySelector("html");
@@ -40,18 +44,34 @@ const Dashboard = () => {
       .catch(() => toast.error("SignOut Failed!"));
   };
 
+  // মেনু আইটেম বা ওভারলেতে ক্লিক করলে মেনু বন্ধ করার ফাংশন
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
     <div className="min-h-screen bg-base-100 flex overflow-hidden">
-      {/* Sidebar - Desktop */}
-      <aside className="w-80 hidden lg:flex flex-col border-r border-base-200 bg-base-100 relative z-30">
+      
+      {/* Mobile Overlay - মেনু খোলা থাকলে ব্যাকগ্রাউন্ড আবছা করবে */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity"
+          onClick={toggleMenu}
+        ></div>
+      )}
+
+      {/* Sidebar - Desktop & Mobile */}
+      <aside className={`
+        fixed inset-y-0 left-0 z-50 w-80 bg-base-100 border-r border-base-200 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+      `}>
         {/* Background Glows */}
         <div className="absolute top-0 -left-20 w-48 h-48 bg-primary/5 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
         <div className="absolute bottom-10 right-0 w-32 h-32 bg-secondary/5 rounded-full blur-2xl opacity-50 pointer-events-none"></div>
 
         {/* Sidebar Header */}
-        <div className="px-8 py-8">
+        <div className="px-8 py-8 flex items-center justify-between">
           <Link
             to="/"
+            onClick={() => setIsOpen(false)}
             className="flex items-center gap-2 group transition-transform active:scale-95"
           >
             <div className="bg-primary/10 p-1.5 rounded-xl group-hover:bg-primary/20 transition-colors">
@@ -68,35 +88,39 @@ const Dashboard = () => {
               </span>
             </span>
           </Link>
+          
+          {/* Mobile Close Button */}
+          <button onClick={toggleMenu} className="lg:hidden btn btn-ghost btn-circle btn-sm">
+            <HiXMark size={24} />
+          </button>
         </div>
 
         {/* Navigation Menu */}
         <nav className="flex-1 px-4 space-y-2 mt-4 relative z-10">
-          <NavLink to="/dashboard" end className={linkStyle}>
+          <NavLink to="/dashboard" end className={linkStyle} onClick={() => setIsOpen(false)}>
             <HiHome className="text-xl" />
             <span className="tracking-tight uppercase text-sm">Overview</span>
           </NavLink>
 
-          <NavLink to="/dashboard/add-artworks" className={linkStyle}>
+          <NavLink to="/dashboard/add-artworks" className={linkStyle} onClick={() => setIsOpen(false)}>
             <HiPlusCircle className="text-xl" />
             <span className="tracking-tight uppercase text-sm">
               Add Artwork
             </span>
           </NavLink>
 
-          <NavLink to="/dashboard/my-gallery" className={linkStyle}>
+          <NavLink to="/dashboard/my-gallery" className={linkStyle} onClick={() => setIsOpen(false)}>
             <HiPhoto className="text-xl" />
             <span className="tracking-tight uppercase text-sm">My Gallery</span>
           </NavLink>
 
-          <NavLink to="/dashboard/favorites" className={linkStyle}>
+          <NavLink to="/dashboard/favorites" className={linkStyle} onClick={() => setIsOpen(false)}>
             <HiHeart className="text-xl" />
             <span className="tracking-tight uppercase text-sm">Favorites</span>
           </NavLink>
 
           <div className="divider opacity-50 px-4"></div>
 
-          {/* Logout Button */}
           <button
             onClick={handleSignOut}
             className="flex items-center gap-3 px-6 py-3.5 rounded-xl font-bold text-red-600 hover:bg-red-50 transition-all duration-300 w-full"
@@ -126,10 +150,12 @@ const Dashboard = () => {
         </div>
       </aside>
 
+      {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         <header className="h-20 flex items-center justify-between px-6 lg:px-10 border-b border-base-200 bg-base-100/70 backdrop-blur-xl sticky top-0 z-20">
           <div className="flex items-center gap-4">
-            <button className="lg:hidden btn btn-ghost btn-circle">
+            {/* Hamburger Button - এখন এটি কাজ করবে */}
+            <button onClick={toggleMenu} className="lg:hidden btn btn-ghost btn-circle">
               <HiBars3BottomLeft size={24} />
             </button>
             <div className="space-y-0.5">
@@ -139,7 +165,7 @@ const Dashboard = () => {
                   {user?.displayName?.split(" ")[0] || "Artist"}
                 </span>
               </h1>
-              <p className="text-[10px] text-neutral/50 font-bold uppercase tracking-[0.2em] border-l-2 border-secondary pl-2">
+              <p className="text-[10px] text-neutral/50 font-bold uppercase tracking-[0.2em] border-l-2 border-secondary pl-2 hidden sm:block">
                 {new Date().toLocaleDateString("en-US", {
                   month: "long",
                   day: "numeric",
@@ -167,11 +193,11 @@ const Dashboard = () => {
         </header>
 
         {/* Page Content Area */}
-        <main className="flex-1 overflow-y-auto p-6 lg:p-10 bg-base-200/30">
+        <main className="flex-1 overflow-y-auto p-4 lg:p-10 bg-base-200/30">
           <div className="relative max-w-7xl mx-auto">
             <div className="absolute -top-10 -right-10 w-64 h-64 bg-secondary/5 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="relative z-10 bg-base-100 border border-base-200 rounded-[2.5rem] p-8 lg:p-12 shadow-sm min-h-[calc(100vh-200px)]">
-              <div className="absolute -inset-1.5 border border-primary/10 rounded-[2.6rem] -z-10 pointer-events-none"></div>
+            <div className="relative z-10 bg-base-100 border border-base-200 rounded-[2rem] lg:rounded-[2.5rem] p-5 lg:p-12 shadow-sm min-h-[calc(100vh-160px)] lg:min-h-[calc(100vh-200px)]">
+              <div className="absolute -inset-1.5 border border-primary/10 rounded-[2.1rem] lg:rounded-[2.6rem] -z-10 pointer-events-none"></div>
               <Outlet />
             </div>
           </div>

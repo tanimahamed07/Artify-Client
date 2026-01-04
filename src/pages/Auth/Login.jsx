@@ -12,12 +12,6 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleDemoLogin = () => {
-    const emailInput = document.getElementById("email-field");
-    const passwordInput = document.getElementById("password-field");
-    emailInput.value = "artist@demo.com";
-    passwordInput.value = "Demo1234@";
-  };
 
   const handleLogIn = (event) => {
     event.preventDefault();
@@ -131,14 +125,6 @@ const Login = () => {
               className="btn btn-outline border-base-300 hover:bg-neutral hover:text-white w-full rounded-xl flex items-center justify-center gap-3 font-bold transition-all"
             >
               <FcGoogle size={20} /> Continue with Google
-            </button>
-
-
-            <button 
-              onClick={handleDemoLogin}
-              className="w-full mt-4 py-2 text-[11px] font-bold text-neutral/40 hover:text-primary border border-dashed border-base-300 rounded-xl transition-all uppercase tracking-widest"
-            >
-              Click for Demo Credentials
             </button>
           </div>
 
